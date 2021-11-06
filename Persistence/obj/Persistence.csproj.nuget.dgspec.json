@@ -1,25 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/stephensouvall/Projects/WhatsForDinner/Persistence/Persistence.csproj": {}
+    "C:\\Users\\steph\\Source\\Repos\\Recipe\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "/Users/stephensouvall/Projects/WhatsForDinner/Domain/Domain.csproj": {
+    "C:\\Users\\steph\\Source\\Repos\\Recipe\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/stephensouvall/Projects/WhatsForDinner/Domain/Domain.csproj",
+        "projectUniqueName": "C:\\Users\\steph\\Source\\Repos\\Recipe\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/Users/stephensouvall/Projects/WhatsForDinner/Domain/Domain.csproj",
-        "packagesPath": "/Users/stephensouvall/.nuget/packages/",
-        "outputPath": "/Users/stephensouvall/Projects/WhatsForDinner/Domain/obj/",
+        "projectPath": "C:\\Users\\steph\\Source\\Repos\\Recipe\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\steph\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\steph\\Source\\Repos\\Recipe\\Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/stephensouvall/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\steph\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,13 +45,19 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
             }
           },
           "imports": [
@@ -64,34 +75,39 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/stephensouvall/Projects/WhatsForDinner/Persistence/Persistence.csproj": {
+    "C:\\Users\\steph\\Source\\Repos\\Recipe\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/stephensouvall/Projects/WhatsForDinner/Persistence/Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\steph\\Source\\Repos\\Recipe\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "/Users/stephensouvall/Projects/WhatsForDinner/Persistence/Persistence.csproj",
-        "packagesPath": "/Users/stephensouvall/.nuget/packages/",
-        "outputPath": "/Users/stephensouvall/Projects/WhatsForDinner/Persistence/obj/",
+        "projectPath": "C:\\Users\\steph\\Source\\Repos\\Recipe\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\steph\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\steph\\Source\\Repos\\Recipe\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/stephensouvall/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\steph\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "/Users/stephensouvall/Projects/WhatsForDinner/Domain/Domain.csproj": {
-                "projectPath": "/Users/stephensouvall/Projects/WhatsForDinner/Domain/Domain.csproj"
+              "C:\\Users\\steph\\Source\\Repos\\Recipe\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\steph\\Source\\Repos\\Recipe\\Domain\\Domain.csproj"
               }
             }
           }
@@ -108,17 +124,23 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
             }
           },
           "imports": [
@@ -136,7 +158,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }
