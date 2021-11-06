@@ -1,6 +1,7 @@
 import React from "react";
-import { Grid, List } from "semantic-ui-react";
+import { Grid} from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
+import RecipeList from "./RecipeList";
 
 interface Props {
     recipes: Recipe[];
@@ -11,14 +12,9 @@ export default function RecipeDashboard({recipes}: Props){
     return (
         <Grid>
             <Grid.Column width='10'>
-                <List>
-                {recipes.map((recipe) => (
-                    <List.Item key={recipe.id}>
-                    {recipe.name};
-                    Hello
-                    </List.Item>
-                ))}
-                </List>
+                <RecipeList 
+                    recipes={recipes}
+                />
             </Grid.Column>
         </Grid>
     )
