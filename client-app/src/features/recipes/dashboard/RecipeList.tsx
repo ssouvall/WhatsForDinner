@@ -25,7 +25,7 @@ export default function RecipeList({recipes}: Props) {
                                     content='Delete' 
                                     color='red' 
                                 />
-                                <Label basic content={recipe.name}/>
+                                <Label basic content={recipe.category}/>
                             </Item.Extra>
                         </Item.Content>
                     </Item>     
