@@ -130,4 +130,3 @@ C:/Users/steph/Source/Repos/Recipe/API/obj/Debug/net5.0/API.genruntimeconfig.cac
 /Users/stephensouvall/Projects/WhatsForDinner/API/obj/Debug/net5.0/ref/API.dll
 /Users/stephensouvall/Projects/WhatsForDinner/API/obj/Debug/net5.0/API.pdb
 /Users/stephensouvall/Projects/WhatsForDinner/API/obj/Debug/net5.0/API.genruntimeconfig.cache
-/Users/stephensouvall/Projects/WhatsForDinner/API/obj/Debug/net5.0/API.csproj.CopyComplete

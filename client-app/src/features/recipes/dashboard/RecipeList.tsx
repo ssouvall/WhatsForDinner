@@ -4,9 +4,10 @@ import { Recipe } from "../../../app/models/recipe";
 
 interface Props {
     recipes: Recipe[];
+    selectRecipe: (id: number) => void;
 }
 
-export default function RecipeList({recipes}: Props) {
+export default function RecipeList({recipes, selectRecipe}: Props) {
     return(
         <Segment>
             <Item.Group divided>
@@ -19,7 +20,7 @@ export default function RecipeList({recipes}: Props) {
                                 <div>{recipe.instructions}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button floated='right' content='View' color='blue' />
+                                <Button onClick={() => selectRecipe(recipe.id)} floated='right' content='View' color='blue' />
                                 <Button 
                                     floated='right' 
                                     content='Delete' 
