@@ -5,9 +5,10 @@ import { Recipe } from "../../../app/models/recipe";
 interface Props {
     recipes: Recipe[];
     selectRecipe: (id: number) => void;
+    submitting: boolean;
 }
 
-export default function RecipeList({recipes, selectRecipe}: Props) {
+export default function RecipeList({recipes, selectRecipe, submitting}: Props) {
     return(
         <Segment>
             <Item.Group divided>
