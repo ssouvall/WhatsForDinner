@@ -5,10 +5,11 @@ import { Recipe } from "../../../app/models/recipe";
 interface Props {
     recipes: Recipe[];
     selectRecipe: (id: number) => void;
+    deleteRecipe: (id: number) => void;
     submitting: boolean;
 }
 
-export default function RecipeList({recipes, selectRecipe, submitting}: Props) {
+export default function RecipeList({recipes, selectRecipe, deleteRecipe, submitting}: Props) {
     return(
         <Segment>
             <Item.Group divided>
@@ -23,6 +24,7 @@ export default function RecipeList({recipes, selectRecipe, submitting}: Props) {
                             <Item.Extra>
                                 <Button onClick={() => selectRecipe(recipe.id)} floated='right' content='View' color='blue' />
                                 <Button 
+                                    onClick={() => deleteRecipe(recipe.id)} 
                                     floated='right' 
                                     content='Delete' 
                                     color='red' 

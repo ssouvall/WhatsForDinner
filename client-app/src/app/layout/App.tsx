@@ -1,20 +1,22 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import axios from 'axios';
 import { Container} from 'semantic-ui-react';
 import { Recipe } from '../models/recipe';
 import Navbar from './Navbar';
 import RecipeDashboard from '../../features/recipes/dashboard/RecipeDashboard';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponents';
 
 function App() {
   const[recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get<Recipe[]>("http://localhost:8000/api/recipes").then(response => {
-      console.log(response);
-      setRecipes(response.data);
+    agent.Recipes.list().then(response => {
+      setRecipes(response);
+      setLoading(false);
     })
   }, [])
 
@@ -38,14 +40,14 @@ function App() {
   function handleCreateOrEditRecipe(recipe: Recipe) {
     setSubmitting(true);
     if (recipe.id) {
-      axios.put<Recipe>(`http://localhost:8000/api/recipes/${recipe.id}`).then(() => {
+      agent.Recipes.update(recipe).then(() => {
         setRecipes([...recipes.filter(x => x.id !== recipe.id), recipe])
         setSelectedRecipe(recipe);
         setEditMode(false)
         setSubmitting(false);
       })
     } else {
-      axios.post<Recipe>("http://localhost:8000/api/recipes").then(() => {
+      agent.Recipes.create(recipe).then(() => {
         setRecipes([...recipes, recipe])
         setSelectedRecipe(recipe);
         setEditMode(false);
@@ -53,6 +55,16 @@ function App() {
       })
     }
   }
+
+    function handleDeleteRecipe(id: number) {
+    setSubmitting(true);
+    agent.Recipes.delete(id).then(() => {
+      setRecipes([...recipes.filter(x => x.id !== id)])
+      setSubmitting(false);
+    })
+  }
+  
+  if (loading) return <LoadingComponent content='Loading app' />
 
   return (
     <Fragment>
@@ -69,6 +81,7 @@ function App() {
           closeForm={handleFormClose}
           editMode={editMode}
           createOrEdit={handleCreateOrEditRecipe}
+          deleteRecipe={handleDeleteRecipe}
           submitting={submitting}
         />
       </Container>

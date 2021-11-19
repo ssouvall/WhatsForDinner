@@ -14,10 +14,11 @@ interface Props {
     closeForm: () => void;
     editMode: boolean;
     createOrEdit: (recipe: Recipe) => void;
+    deleteRecipe: (id: number) => void;
     submitting: boolean;
 }
 
-export default function RecipeDashboard({recipes, selectedRecipe, selectRecipe, cancelSelectRecipe, openForm, closeForm, editMode, createOrEdit, submitting}: Props){
+export default function RecipeDashboard({recipes, selectedRecipe, selectRecipe, cancelSelectRecipe, openForm, closeForm, editMode, createOrEdit, submitting, deleteRecipe}: Props){
     
     return (
         <Grid>
@@ -25,6 +26,7 @@ export default function RecipeDashboard({recipes, selectedRecipe, selectRecipe, 
                 <RecipeList 
                     recipes={recipes}
                     selectRecipe={selectRecipe}
+                    deleteRecipe={deleteRecipe}
                     submitting={submitting}
                 />
             </Grid.Column>
