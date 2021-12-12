@@ -33,3 +33,4 @@ C:/Users/steph/Source/Repos/Recipe/Persistence/obj/Debug/net5.0/Persistence.genr
 /Users/stephensouvall/Projects/WhatsForDinner/Persistence/obj/Debug/net5.0/ref/Persistence.dll
 /Users/stephensouvall/Projects/WhatsForDinner/Persistence/obj/Debug/net5.0/Persistence.pdb
 /Users/stephensouvall/Projects/WhatsForDinner/Persistence/obj/Debug/net5.0/Persistence.genruntimeconfig.cache
+/Users/stephensouvall/Projects/WhatsForDinner/Persistence/obj/Debug/net5.0/Persistence.csproj.CopyComplete

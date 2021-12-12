@@ -1,24 +1,18 @@
 ﻿<Properties StartupConfiguration="{9282715F-C553-47EC-8D01-A66A29B5ADA4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Persistence/Migrations/20211106160200_AddRecipeCategory.cs">
-    <Files>
-      <File FileName="Persistence/SeedData.cs" Line="1" Column="1" />
-      <File FileName="Persistence/Migrations/20211106160200_AddRecipeCategory.Designer.cs" />
-      <File FileName="Persistence/Migrations/20210930155443_002.cs" />
-      <File FileName="Persistence/Migrations/20210930152516_InitialCreate.cs" Line="1" Column="1" />
-      <File FileName="Persistence/Migrations/20211106160200_AddRecipeCategory.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WhatsForDinner" expanded="True">
             <Node name="API" expanded="True" />
             <Node name="Persistence" expanded="True">
-              <Node name="Migrations" expanded="True">
-                <Node name="20211106160200_AddRecipeCategory.cs" selected="True" />
-              </Node>
+              <Node name="Migrations" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

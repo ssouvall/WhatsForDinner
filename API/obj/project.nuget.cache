@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "IXNENdBr6IAEeQ6Nqwep73XW4tcgdEuthGAD5imYOhsIeFo3V6CK20t20eBrxePJy4k9IMLZou0C/U0MNTtcAw==",
+  "dgSpecHash": "mbXsnmHCWlWogPrwW2Dvho5tAqlaX6mNpn6vAt13i5Y16hj6AY7dBDUOKEoWDjclEmf5hLokczQQwYzGER22Dg==",
   "success": true,
   "projectFilePath": "/Users/stephensouvall/Projects/WhatsForDinner/API/API.csproj",
   "expectedPackageFiles": [
@@ -44,7 +44,8 @@
     "/Users/stephensouvall/.nuget/packages/system.componentmodel.annotations/5.0.0/system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "/Users/stephensouvall/.nuget/packages/system.diagnostics.diagnosticsource/5.0.1/system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
     "/Users/stephensouvall/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
-    "/Users/stephensouvall/.nuget/packages/system.reflection.emit/4.7.0/system.reflection.emit.4.7.0.nupkg.sha512"
+    "/Users/stephensouvall/.nuget/packages/system.reflection.emit/4.7.0/system.reflection.emit.4.7.0.nupkg.sha512",
+    "/Users/stephensouvall/.nuget/packages/microsoft.netcore.app.host.osx-x64/5.0.12/microsoft.netcore.app.host.osx-x64.5.0.12.nupkg.sha512"
   ],
   "logs": []
 }
