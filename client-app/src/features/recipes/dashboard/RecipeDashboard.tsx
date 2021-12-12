@@ -6,7 +6,6 @@ import RecipeForm from "../form/RecipeForm";
 import RecipeList from "./RecipeList";
 
 interface Props {
-    recipes: Recipe[];
     selectedRecipe: Recipe | undefined;
     selectRecipe: (id: number) => void;
     cancelSelectRecipe: () => void;
@@ -18,13 +17,12 @@ interface Props {
     submitting: boolean;
 }
 
-export default function RecipeDashboard({recipes, selectedRecipe, selectRecipe, cancelSelectRecipe, openForm, closeForm, editMode, createOrEdit, submitting, deleteRecipe}: Props){
+export default function RecipeDashboard({selectedRecipe, selectRecipe, cancelSelectRecipe, openForm, closeForm, editMode, createOrEdit, submitting, deleteRecipe}: Props){
     
     return (
         <Grid>
             <Grid.Column width='10'>
                 <RecipeList 
-                    recipes={recipes}
                     selectRecipe={selectRecipe}
                     deleteRecipe={deleteRecipe}
                     submitting={submitting}

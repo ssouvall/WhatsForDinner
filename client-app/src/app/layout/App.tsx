@@ -73,7 +73,6 @@ function App() {
       />
       <Container style={{marginTop: '7em'}}>
         <RecipeDashboard 
-          recipes={recipes}
           selectedRecipe={selectedRecipe}
           selectRecipe={handleSelectRecipe}
           cancelSelectRecipe={handleCancelSelectRecipe}

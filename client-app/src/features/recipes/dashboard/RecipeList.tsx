@@ -1,15 +1,24 @@
-import React from "react";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from "../../../redux/store";
+import { useEffect } from "react";
+import { fetchRecipes } from '../../../redux/actions/recipeActions';
 
 interface Props {
-    recipes: Recipe[];
     selectRecipe: (id: number) => void;
     deleteRecipe: (id: number) => void;
     submitting: boolean;
 }
 
-export default function RecipeList({recipes, selectRecipe, deleteRecipe, submitting}: Props) {
+function RecipeList({selectRecipe, deleteRecipe, submitting}: Props) {
+    const dispatch = useDispatch()
+    const recipes: Recipe[] = useSelector((state: RootState) => state.recipes.recipes)
+
+    useEffect(() => {
+        fetchRecipes();
+    }, [dispatch])
+
     return(
         <Segment>
             <Item.Group divided>
@@ -38,3 +47,9 @@ export default function RecipeList({recipes, selectRecipe, deleteRecipe, submitt
         </Segment>
     );
 }
+
+// const mapStateToProps = (state: RootState) => ({
+//     recipes: state.recipes.recipes
+// })
+
+export default RecipeList;
