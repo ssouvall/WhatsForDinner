@@ -4,9 +4,11 @@ import { Recipe } from "../../../app/models/recipe";
 import RecipeDetails from "../details/RecipeDetails";
 import RecipeForm from "../form/RecipeForm";
 import RecipeList from "./RecipeList";
+import { useSelector } from 'react-redux';
+import { RootState } from "../../../redux/store";
 
 interface Props {
-    selectedRecipe: Recipe | undefined;
+    // selectedRecipe: Recipe | undefined;
     selectRecipe: (id: number) => void;
     cancelSelectRecipe: () => void;
     openForm: (id: number) => void;
@@ -17,13 +19,13 @@ interface Props {
     submitting: boolean;
 }
 
-export default function RecipeDashboard({selectedRecipe, selectRecipe, cancelSelectRecipe, openForm, closeForm, editMode, createOrEdit, submitting, deleteRecipe}: Props){
-    
+export default function RecipeDashboard({/*selectedRecipe, */selectRecipe, cancelSelectRecipe, openForm, closeForm, editMode, createOrEdit, submitting, deleteRecipe}: Props){
+    const selectedRecipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
     return (
         <Grid>
             <Grid.Column width='10'>
                 <RecipeList 
-                    selectRecipe={selectRecipe}
+                    // selectRecipe={selectRecipe}
                     deleteRecipe={deleteRecipe}
                     submitting={submitting}
                 />

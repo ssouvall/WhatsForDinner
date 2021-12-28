@@ -1,6 +1,10 @@
 import React from "react";
 import { Button, Card, Image } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
+import { /*useDispatch, */useSelector } from 'react-redux';
+import { RootState } from "../../../redux/store";
+// import { useEffect } from "react";
+// import { getRecipeDetails } from '../../../redux/actions/recipe/recipeActions';
 
 interface Props {
     recipe: Recipe;
@@ -9,6 +13,13 @@ interface Props {
 }
 
 export default function RecipeDetails({recipe, cancelSelectRecipe, openForm}: Props){
+    // const dispatch = useDispatch();
+    // const recipe: Recipe = useSelector((state: RootState) => state.recipes.recipe)
+
+    // useEffect(() => {
+    //     getRecipeDetails(recipe.id);
+    // }, [dispatch, recipe.id])
+
     return(
         <Card fluid>
             <Image src={`/assets/categoryImages/${recipe.category}.jpg`} />

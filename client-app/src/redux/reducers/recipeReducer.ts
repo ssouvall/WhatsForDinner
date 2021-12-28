@@ -1,7 +1,11 @@
 import {
+    DELETE_RECIPE,
+    EDIT_RECIPE,
     FETCH_RECIPES,
-    NEW_RECIPE
-} from '../actions/types';
+    GET_SELECTED_RECIPE,
+    NEW_RECIPE,
+    SET_SELECTED_RECIPE
+} from '../actions/recipe/recipeTypes';
 import { Recipe } from '../../app/models/recipe'
 
 interface recipeAction {
@@ -32,7 +36,27 @@ export default function reducer(state = initialState, action: recipeAction) {
                 ...state,
                 recipes: action.payload
             }
+        case SET_SELECTED_RECIPE:
+            return {
+                ...state,
+                recipe: action.payload
+            }
+        case GET_SELECTED_RECIPE:
+            return {
+                ...state,
+                recipe: action.payload
+            }
         case NEW_RECIPE:
+            return {
+                ...state,
+                recipe: action.payload
+            }
+        case EDIT_RECIPE:
+            return {
+                ...state,
+                recipe: action.payload
+            }
+        case DELETE_RECIPE:
             return {
                 ...state,
                 recipe: action.payload
