@@ -1,6 +1,9 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrEditRecipe, setFormOpenState } from "../../../redux/actions/recipe/recipeActions";
+import { RootState } from "../../../redux/store";
 
 interface Props {
     recipe: Recipe | undefined;
@@ -9,20 +12,30 @@ interface Props {
     submitting: boolean;
 }
 
-export default function ActivityForm({recipe: selectedRecipe, closeForm, createOrEdit, submitting}: Props) {
+export default function ActivityForm({/*recipe: selectedRecipe, */closeForm, createOrEdit, submitting}: Props) {
+    const dispatch = useDispatch()
+    const [loading, setLoading] = useState(true);
+    let selectedRecipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
 
-    const initialState = selectedRecipe ?? {
+    const [recipe, setRecipe] = useState({
         id: 0,
         name: '',
         category: '',
         description: '',
         instructions: ''
-    }
+    });
 
-    const [recipe, setRecipe] = useState(initialState);
+    useEffect(() => {
+        if (selectedRecipe !== undefined) setRecipe(selectedRecipe)
+    }, [selectedRecipe])
 
     function handleSubmit() {
-        createOrEdit(recipe);
+        setLoading(true);
+        if(recipe){
+            dispatch(createOrEditRecipe(recipe))
+        }
+        setLoading(false);
+        // createOrEdit(recipe);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
@@ -37,8 +50,9 @@ export default function ActivityForm({recipe: selectedRecipe, closeForm, createO
                 <Form.TextArea placeholder="Description" value={recipe.description} name='description' onChange={handleInputChange} />
                 <Form.Input placeholder="Category" value={recipe.category} name='category' onChange={handleInputChange} />
                 <Form.TextArea placeholder="Instructions" value={recipe.instructions} name='instructions' onChange={handleInputChange} />
-                <Button loading={submitting} floated="right" positive type="submit" content="Submit" />
-                <Button onClick={closeForm} floated="right" type="submit" content="Cancel" />
+                <Button loading={loading} floated="right" positive type="submit" content="Submit" />
+                {/* <Button onClick={closeForm} floated="right" type="submit" content="Cancel" /> */}
+                <Button onClick={() => dispatch(setFormOpenState(false, recipe))} floated="right" type="submit" content="Cancel" />
             </Form>
         </Segment>
     )

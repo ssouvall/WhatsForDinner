@@ -13,14 +13,16 @@ interface Props {
     cancelSelectRecipe: () => void;
     openForm: (id: number) => void;
     closeForm: () => void;
-    editMode: boolean;
+    // editMode: boolean;
     createOrEdit: (recipe: Recipe) => void;
     deleteRecipe: (id: number) => void;
     submitting: boolean;
 }
 
-export default function RecipeDashboard({/*selectedRecipe, */selectRecipe, cancelSelectRecipe, openForm, closeForm, editMode, createOrEdit, submitting, deleteRecipe}: Props){
+export default function RecipeDashboard({/*selectedRecipe, */selectRecipe, cancelSelectRecipe, openForm, closeForm,/* editMode,*/ createOrEdit, submitting, deleteRecipe}: Props){
     const selectedRecipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
+    const editMode: boolean = useSelector((state: RootState) => state.recipes.editMode)
+
     return (
         <Grid>
             <Grid.Column width='10'>
@@ -31,7 +33,7 @@ export default function RecipeDashboard({/*selectedRecipe, */selectRecipe, cance
                 />
             </Grid.Column>
             <Grid.Column width='6'>
-            {selectedRecipe && !editMode &&
+            {selectedRecipe && selectedRecipe.id !== 0 && !editMode &&
                 <RecipeDetails 
                     recipe={selectedRecipe}
                     cancelSelectRecipe={cancelSelectRecipe}

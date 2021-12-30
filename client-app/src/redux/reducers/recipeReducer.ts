@@ -4,21 +4,25 @@ import {
     FETCH_RECIPES,
     GET_SELECTED_RECIPE,
     NEW_RECIPE,
-    SET_SELECTED_RECIPE
+    SET_SELECTED_RECIPE,
+    SET_FORM_OPEN_STATE
 } from '../actions/recipe/recipeTypes';
 import { Recipe } from '../../app/models/recipe'
 
 interface recipeAction {
     type: string;
-    payload: any;
+    payload?: any;
+    recipeToOpen?: Recipe | undefined;
+    editMode?: boolean;
 }
 
-interface recipeState {
+interface RecipeState {
     recipes: Recipe[];
-    recipe: Recipe;
+    recipe: Recipe | undefined;
+    editMode: boolean;
 }
 
-const initialState: recipeState = {
+const initialState: RecipeState = {
     recipes: [],
     recipe: {
         id: 0,
@@ -26,10 +30,11 @@ const initialState: recipeState = {
         category: '',
         description: '',
         instructions: ''
-    }
+    },
+    editMode: false
 }
 
-export default function reducer(state = initialState, action: recipeAction) {
+export default function reducer(state = initialState, action: recipeAction ): RecipeState {
     switch (action.type) {
         case FETCH_RECIPES:
             return {
@@ -60,6 +65,12 @@ export default function reducer(state = initialState, action: recipeAction) {
             return {
                 ...state,
                 recipe: action.payload
+            }
+        case SET_FORM_OPEN_STATE:
+            return {
+                ...state,
+                recipe: action.recipeToOpen ? action.recipeToOpen : undefined,
+                editMode: action.editMode ? action.editMode : false
             }
         default:
             return state;

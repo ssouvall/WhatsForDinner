@@ -1,11 +1,15 @@
 import React from "react";
 import { Button, Container, Menu } from "semantic-ui-react";
+import { useDispatch } from 'react-redux';
+import { setFormOpenState } from '../../redux/actions/recipe/recipeActions';
 
 interface Props {
     openForm: () => void;
 }
 
 export default function Navbar({openForm}: Props) {
+    const dispatch = useDispatch();
+
     return (
         <Menu inverted fixed='top'>
             <Container>
@@ -15,7 +19,7 @@ export default function Navbar({openForm}: Props) {
                 </Menu.Item>
                 <Menu.Item name="Recipes" />
                 <Menu.Item>
-                    <Button onClick={openForm} positive content="Create Recipe" />
+                    <Button onClick={() => dispatch(setFormOpenState(true, undefined))} positive content="Create Recipe" />
                 </Menu.Item>
             </Container>
         </Menu>

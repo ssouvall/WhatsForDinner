@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Card, Image } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
-import { /*useDispatch, */useSelector } from 'react-redux';
-import { RootState } from "../../../redux/store";
+import { useDispatch } from 'react-redux';
+// import { RootState } from "../../../redux/store";
 // import { useEffect } from "react";
-// import { getRecipeDetails } from '../../../redux/actions/recipe/recipeActions';
+import { setRecipeDetails, setFormOpenState } from '../../../redux/actions/recipe/recipeActions';
 
 interface Props {
     recipe: Recipe;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function RecipeDetails({recipe, cancelSelectRecipe, openForm}: Props){
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const recipe: Recipe = useSelector((state: RootState) => state.recipes.recipe)
 
     // useEffect(() => {
@@ -37,8 +37,10 @@ export default function RecipeDetails({recipe, cancelSelectRecipe, openForm}: Pr
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths='2'>
-                    <Button onClick={() => openForm(recipe.id)} basic color='blue' content='Edit' />
-                    <Button onClick={cancelSelectRecipe} basic color='grey' content='Cancel' />
+                    {/* <Button onClick={() => openForm(recipe.id)} basic color='blue' content='Edit' /> */}
+                    {/* <Button onClick={cancelSelectRecipe} basic color='grey' content='Cancel' /> */}
+                    <Button onClick={() => dispatch(setFormOpenState(true, recipe))} basic color='blue' content='Edit' />
+                    <Button onClick={() => dispatch(setRecipeDetails(undefined))} basic color='grey' content='Cancel' />
                 </Button.Group>
             </Card.Content>
         </Card> 

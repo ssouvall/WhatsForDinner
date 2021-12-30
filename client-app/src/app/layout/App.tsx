@@ -78,7 +78,7 @@ function App() {
           cancelSelectRecipe={handleCancelSelectRecipe}
           openForm={handleFormOpen}
           closeForm={handleFormClose}
-          editMode={editMode}
+          // editMode={editMode}
           createOrEdit={handleCreateOrEditRecipe}
           deleteRecipe={handleDeleteRecipe}
           submitting={submitting}

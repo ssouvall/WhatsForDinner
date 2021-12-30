@@ -4,3 +4,4 @@ export const SET_SELECTED_RECIPE = 'GET_SELECTED_RECIPE';
 export const NEW_RECIPE = 'NEW_RECIPE';
 export const EDIT_RECIPE = "EDIT_RECIPE";
 export const DELETE_RECIPE = 'DELETE_RECIPE';
+export const SET_FORM_OPEN_STATE = "SET_FORM_OPEN_STATE";

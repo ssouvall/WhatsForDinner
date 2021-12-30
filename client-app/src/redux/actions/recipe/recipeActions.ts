@@ -4,7 +4,8 @@ import {
     FETCH_RECIPES,
     GET_SELECTED_RECIPE,
     SET_SELECTED_RECIPE,
-    NEW_RECIPE
+    NEW_RECIPE,
+    SET_FORM_OPEN_STATE
 } from './recipeTypes';
 import { Dispatch } from 'redux';
 import agent from '../../../app/api/agent';
@@ -20,8 +21,8 @@ export const fetchRecipes = () => (dispatch: Dispatch) => {
     })
 }
 
-export const setRecipeDetails = (recipeId: number) => (dispatch: Dispatch) => {
-    agent.Recipes.details(recipeId).then(response => {
+export const setRecipeDetails = (recipeId: number | undefined) => (dispatch: Dispatch) => {
+    agent.Recipes.details(recipeId ? recipeId : -1).then(response => {
         dispatch({
             type: SET_SELECTED_RECIPE,
             payload: response
@@ -38,23 +39,34 @@ export const getRecipeDetails = (recipeId: number) => (dispatch: Dispatch) => {
     })
 }
 
-export const createRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
-    agent.Recipes.create(recipeData).then(response => {
-        dispatch({
-            type: NEW_RECIPE,
-            payload: response
+export const createOrEditRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
+    if(!recipeData) return;
+
+    if(recipeData.id === 0){
+        agent.Recipes.create(recipeData).then(response => {
+            dispatch({
+                type: NEW_RECIPE,
+                payload: response
+            })
         })
-    })
+    } else {
+        agent.Recipes.update(recipeData).then(response => {
+        dispatch({
+                type: EDIT_RECIPE,
+                payload: response
+            })
+        })
+    }
 }
 
-export const editRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
-    agent.Recipes.update(recipeData).then(response => {
-        dispatch({
-            type: EDIT_RECIPE,
-            payload: response
-        })
-    })
-}
+// export const editRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
+//     agent.Recipes.update(recipeData).then(response => {
+//         dispatch({
+//             type: EDIT_RECIPE,
+//             payload: response
+//         })
+//     })
+// }
 
 export const deleteRecipe = (recipeId: number) => (dispatch: Dispatch) => {
     agent.Recipes.delete(recipeId).then(response => {
@@ -62,5 +74,13 @@ export const deleteRecipe = (recipeId: number) => (dispatch: Dispatch) => {
             type: DELETE_RECIPE,
             payload: response
         })
+    })
+}
+
+export const setFormOpenState = (editMode: boolean, recipe: Recipe | undefined) => (dispatch: Dispatch) => {
+    dispatch({
+        type: SET_FORM_OPEN_STATE,
+        editMode: editMode,
+        recipeToOpen: recipe
     })
 }

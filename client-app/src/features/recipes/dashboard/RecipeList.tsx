@@ -3,7 +3,7 @@ import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../../redux/store";
 import { useEffect } from "react";
-import { fetchRecipes, setRecipeDetails } from '../../../redux/actions/recipe/recipeActions';
+import { fetchRecipes, setFormOpenState, setRecipeDetails } from '../../../redux/actions/recipe/recipeActions';
 
 interface Props {
     // selectRecipe: (id: number) => void;
@@ -15,6 +15,10 @@ function RecipeList({/*selectRecipe,*/ deleteRecipe, submitting}: Props) {
     const dispatch = useDispatch()
     const recipes: Recipe[] = useSelector((state: RootState) => state.recipes.recipes)
 
+    function setRecipeToShow(recipeId: number){
+        dispatch(setFormOpenState(false, undefined))
+        dispatch(setRecipeDetails(recipeId))
+    }
     useEffect(() => {
         dispatch(fetchRecipes());
     }, [dispatch])
@@ -31,7 +35,7 @@ function RecipeList({/*selectRecipe,*/ deleteRecipe, submitting}: Props) {
                                 <div>{recipe.instructions}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button onClick={() => dispatch(setRecipeDetails(recipe.id))} floated='right' content='View' color='blue' />
+                                <Button onClick={() => setRecipeToShow(recipe.id)} floated='right' content='View' color='blue' />
                                 <Button 
                                     onClick={() => deleteRecipe(recipe.id)} 
                                     floated='right' 
