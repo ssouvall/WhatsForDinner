@@ -14,7 +14,7 @@ interface Props {
 
 export default function ActivityForm({/*recipe: selectedRecipe, */closeForm, createOrEdit, submitting}: Props) {
     const dispatch = useDispatch()
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     let selectedRecipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
 
     const [recipe, setRecipe] = useState({
@@ -29,7 +29,8 @@ export default function ActivityForm({/*recipe: selectedRecipe, */closeForm, cre
         if (selectedRecipe !== undefined) setRecipe(selectedRecipe)
     }, [selectedRecipe])
 
-    function handleSubmit() {
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
         setLoading(true);
         if(recipe){
             dispatch(createOrEditRecipe(recipe))

@@ -10,6 +10,9 @@ import {
 import { Dispatch } from 'redux';
 import agent from '../../../app/api/agent';
 import { Recipe } from '../../../app/models/recipe';
+import store from '../../store';
+
+const allRecipeData: Recipe[] | undefined = store.getState().recipes.recipes;
 
 export const fetchRecipes = () => (dispatch: Dispatch) => {
     agent.Recipes.list()
@@ -42,7 +45,7 @@ export const getRecipeDetails = (recipeId: number) => (dispatch: Dispatch) => {
 export const createOrEditRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
     if(!recipeData) return;
 
-    if(recipeData.id === 0){
+    if(allRecipeData?.length === 0 || !allRecipeData?.includes(recipeData)){
         agent.Recipes.create(recipeData).then(response => {
             dispatch({
                 type: NEW_RECIPE,

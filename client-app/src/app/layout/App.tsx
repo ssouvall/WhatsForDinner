@@ -5,6 +5,9 @@ import Navbar from './Navbar';
 import RecipeDashboard from '../../features/recipes/dashboard/RecipeDashboard';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponents';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRecipes } from '../../redux/actions/recipe/recipeActions';
+import { RootState } from "../../redux/store";
 
 function App() {
   const[recipes, setRecipes] = useState<Recipe[]>([]);
@@ -12,13 +15,22 @@ function App() {
   const [editMode, setEditMode] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch()
+  const allRecipes: Recipe[] = useSelector((state: RootState) => state.recipes.recipes)
 
-  useEffect(() => {
-    agent.Recipes.list().then(response => {
-      setRecipes(response);
-      setLoading(false);
-    })
-  }, [])
+
+  // useEffect(() => {
+  //   agent.Recipes.list().then(response => {
+  //     setRecipes(response);
+  //     setLoading(false);
+  //   })
+  // }, [])
+
+    useEffect(() => {
+        dispatch(fetchRecipes());
+        setRecipes(allRecipes);
+        setLoading(false);
+    }, [dispatch, allRecipes])
 
   function handleSelectRecipe(id: number) {
     setSelectedRecipe(recipes.find(x => x.id === id));
