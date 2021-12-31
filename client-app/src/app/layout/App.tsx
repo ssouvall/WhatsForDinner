@@ -27,9 +27,19 @@ function App() {
   // }, [])
 
     useEffect(() => {
-        dispatch(fetchRecipes());
-        setRecipes(allRecipes);
-        setLoading(false);
+      function loadRecipeData(){
+        return new Promise ((resolve, reject) => {
+          resolve(dispatch(fetchRecipes()));
+          reject('There was an error loading the data');
+        })
+      }
+      // dispatch(fetchRecipes());
+      loadRecipeData().then(data => {
+        setTimeout(() => {
+          setRecipes(data as Recipe[]);
+          setLoading(false);
+        }, 1000)
+      })
     }, [dispatch, allRecipes])
 
   function handleSelectRecipe(id: number) {

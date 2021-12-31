@@ -10,9 +10,6 @@ import {
 import { Dispatch } from 'redux';
 import agent from '../../../app/api/agent';
 import { Recipe } from '../../../app/models/recipe';
-import store from '../../store';
-
-const allRecipeData: Recipe[] | undefined = store.getState().recipes.recipes;
 
 export const fetchRecipes = () => (dispatch: Dispatch) => {
     agent.Recipes.list()
@@ -42,34 +39,27 @@ export const getRecipeDetails = (recipeId: number) => (dispatch: Dispatch) => {
     })
 }
 
-export const createOrEditRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
+export const createRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
     if(!recipeData) return;
 
-    if(allRecipeData?.length === 0 || !allRecipeData?.includes(recipeData)){
-        agent.Recipes.create(recipeData).then(response => {
-            dispatch({
-                type: NEW_RECIPE,
-                payload: response
-            })
-        })
-    } else {
-        agent.Recipes.update(recipeData).then(response => {
+    agent.Recipes.create(recipeData).then(response => {
         dispatch({
-                type: EDIT_RECIPE,
-                payload: response
-            })
+            type: NEW_RECIPE,
+            payload: response
         })
-    }
+    })
 }
 
-// export const editRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
-//     agent.Recipes.update(recipeData).then(response => {
-//         dispatch({
-//             type: EDIT_RECIPE,
-//             payload: response
-//         })
-//     })
-// }
+export const editRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
+    if(!recipeData) return;
+
+    agent.Recipes.update(recipeData).then(response => {
+        dispatch({
+            type: EDIT_RECIPE,
+            payload: response
+        })
+    })
+}
 
 export const deleteRecipe = (recipeId: number) => (dispatch: Dispatch) => {
     agent.Recipes.delete(recipeId).then(response => {

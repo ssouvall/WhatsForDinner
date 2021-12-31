@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState, useEffect } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
-import { createOrEditRecipe, setFormOpenState } from "../../../redux/actions/recipe/recipeActions";
+import { createRecipe, editRecipe, setFormOpenState } from "../../../redux/actions/recipe/recipeActions";
 import { RootState } from "../../../redux/store";
 
 interface Props {
@@ -16,6 +16,7 @@ export default function ActivityForm({/*recipe: selectedRecipe, */closeForm, cre
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false);
     let selectedRecipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
+    let allRecipes: Recipe[] | undefined = useSelector((state: RootState) => state.recipes.recipes)
 
     const [recipe, setRecipe] = useState({
         id: 0,
@@ -33,7 +34,11 @@ export default function ActivityForm({/*recipe: selectedRecipe, */closeForm, cre
         event.preventDefault();
         setLoading(true);
         if(recipe){
-            dispatch(createOrEditRecipe(recipe))
+            if(!allRecipes?.find(r => r.id === recipe.id)){
+                dispatch(createRecipe(recipe))
+            } else {
+                dispatch(editRecipe(recipe))
+            }
         }
         setLoading(false);
         // createOrEdit(recipe);
