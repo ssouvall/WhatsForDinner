@@ -5,7 +5,7 @@ import {
     GET_SELECTED_RECIPE,
     SET_SELECTED_RECIPE,
     NEW_RECIPE,
-    SET_FORM_OPEN_STATE
+    SET_FORM_OPEN_STATE,
 } from './recipeTypes';
 import { Dispatch } from 'redux';
 import agent from '../../../app/api/agent';

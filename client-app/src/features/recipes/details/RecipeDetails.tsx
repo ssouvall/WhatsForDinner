@@ -2,23 +2,14 @@ import React from "react";
 import { Button, Card, Image } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
 import { useDispatch } from 'react-redux';
-// import { RootState } from "../../../redux/store";
-// import { useEffect } from "react";
 import { setRecipeDetails, setFormOpenState } from '../../../redux/actions/recipe/recipeActions';
 
 interface Props {
     recipe: Recipe;
-    cancelSelectRecipe: () => void;
-    openForm: (id: number) => void;
 }
 
-export default function RecipeDetails({recipe, cancelSelectRecipe, openForm}: Props){
+export default function RecipeDetails({recipe}: Props){
     const dispatch = useDispatch();
-    // const recipe: Recipe = useSelector((state: RootState) => state.recipes.recipe)
-
-    // useEffect(() => {
-    //     getRecipeDetails(recipe.id);
-    // }, [dispatch, recipe.id])
 
     return(
         <Card fluid>

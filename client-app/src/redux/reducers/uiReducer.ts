@@ -1,5 +1,6 @@
 import {
-    LOADING_INITIAL
+    LOADING_INITIAL,
+    SET_BUTTON_SUBMITTING_STATE
 } from '../actions/userInterface/uiTypes'
 
 interface uiAction {
@@ -9,10 +10,12 @@ interface uiAction {
 
 interface uiState {
     loading: boolean;
+    submitting: boolean;
 }
 
 const initialState: uiState = {
-    loading: false
+    loading: false,
+    submitting: false
 }
 
 export default function reducer(state = initialState, action: uiAction) {
@@ -21,6 +24,11 @@ export default function reducer(state = initialState, action: uiAction) {
             return {
                 ...state,
                 loading: action.payload
+            }
+        case SET_BUTTON_SUBMITTING_STATE:
+            return {
+                ...state,
+                submitting: action.payload
             }
         default:
             return state;

@@ -1,110 +1,22 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Container} from 'semantic-ui-react';
-import { Recipe } from '../models/recipe';
 import Navbar from './Navbar';
+import HomePage from '../../features/home/HomePage';
+import { Route, useLocation } from 'react-router-dom';
 import RecipeDashboard from '../../features/recipes/dashboard/RecipeDashboard';
-import agent from '../api/agent';
-import LoadingComponent from './LoadingComponents';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchRecipes } from '../../redux/actions/recipe/recipeActions';
-import { RootState } from "../../redux/store";
+import RecipeForm from '../../features/recipes/form/RecipeForm';
+import RecipeDetails from '../../features/recipes/details/RecipeDetails';
 
 function App() {
-  const[recipes, setRecipes] = useState<Recipe[]>([]);
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(undefined);
-  const [editMode, setEditMode] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch()
-  const allRecipes: Recipe[] = useSelector((state: RootState) => state.recipes.recipes)
-
-
-  // useEffect(() => {
-  //   agent.Recipes.list().then(response => {
-  //     setRecipes(response);
-  //     setLoading(false);
-  //   })
-  // }, [])
-
-    useEffect(() => {
-      function loadRecipeData(){
-        return new Promise ((resolve, reject) => {
-          resolve(dispatch(fetchRecipes()));
-          reject('There was an error loading the data');
-        })
-      }
-      // dispatch(fetchRecipes());
-      loadRecipeData().then(data => {
-        setTimeout(() => {
-          setRecipes(data as Recipe[]);
-          setLoading(false);
-        }, 1000)
-      })
-    }, [dispatch, allRecipes])
-
-  function handleSelectRecipe(id: number) {
-    setSelectedRecipe(recipes.find(x => x.id === id));
-  }
-
-  function handleCancelSelectRecipe() {
-    setSelectedRecipe(undefined);
-  }
-
-  function handleFormOpen(id?: number) {
-    id ? handleSelectRecipe(id) : handleCancelSelectRecipe();
-    setEditMode(true);
-  }
-  
-  function handleFormClose() {
-    setEditMode(false);
-  }
-
-  function handleCreateOrEditRecipe(recipe: Recipe) {
-    setSubmitting(true);
-    if (recipe.id) {
-      agent.Recipes.update(recipe).then(() => {
-        setRecipes([...recipes.filter(x => x.id !== recipe.id), recipe])
-        setSelectedRecipe(recipe);
-        setEditMode(false)
-        setSubmitting(false);
-      })
-    } else {
-      agent.Recipes.create(recipe).then(() => {
-        setRecipes([...recipes, recipe])
-        setSelectedRecipe(recipe);
-        setEditMode(false);
-        setSubmitting(false);
-      })
-    }
-  }
-
-    function handleDeleteRecipe(id: number) {
-    setSubmitting(true);
-    agent.Recipes.delete(id).then(() => {
-      setRecipes([...recipes.filter(x => x.id !== id)])
-      setSubmitting(false);
-    })
-  }
-  
-  if (loading) return <LoadingComponent content='Loading app' />
-
+  const location = useLocation();
   return (
     <Fragment>
-      <Navbar 
-        openForm={handleFormOpen}
-      />
+      <Navbar />
       <Container style={{marginTop: '7em'}}>
-        <RecipeDashboard 
-          // selectedRecipe={selectedRecipe}
-          selectRecipe={handleSelectRecipe}
-          cancelSelectRecipe={handleCancelSelectRecipe}
-          openForm={handleFormOpen}
-          closeForm={handleFormClose}
-          // editMode={editMode}
-          createOrEdit={handleCreateOrEditRecipe}
-          deleteRecipe={handleDeleteRecipe}
-          submitting={submitting}
-        />
+        <Route exact path='/' component={HomePage} />
+        <Route exact path='/recipes' component={RecipeDashboard} />
+        <Route exact path='/recipes/:id' component={RecipeDetails} />
+        <Route key={location.key} path={['/createRecipe', '/manage/:id']} component={RecipeForm} />
       </Container>
     </Fragment>
   );

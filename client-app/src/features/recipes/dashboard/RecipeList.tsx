@@ -2,26 +2,36 @@ import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../../redux/store";
-import { useEffect } from "react";
-import { fetchRecipes, setFormOpenState, setRecipeDetails } from '../../../redux/actions/recipe/recipeActions';
+import { useState, SyntheticEvent } from "react";
+import { deleteRecipe, setFormOpenState, setRecipeDetails } from '../../../redux/actions/recipe/recipeActions';
+import { Link } from "react-router-dom";
 
-interface Props {
-    // selectRecipe: (id: number) => void;
-    deleteRecipe: (id: number) => void;
-    submitting: boolean;
-}
-
-function RecipeList({/*selectRecipe,*/ deleteRecipe, submitting}: Props) {
+function RecipeList() {
     const dispatch = useDispatch()
+    const [submitting, setSubmitting] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [target, setTarget] = useState('');
     const recipes: Recipe[] = useSelector((state: RootState) => state.recipes.recipes)
 
-    function setRecipeToShow(recipeId: number){
-        dispatch(setFormOpenState(false, undefined))
-        dispatch(setRecipeDetails(recipeId))
+    async function setRecipeToShow(e: SyntheticEvent<HTMLButtonElement>, recipeId: number){
+        console.log(e.currentTarget)
+        await setTarget(e.currentTarget.name)
+        await setLoading(true);
+        await dispatch(setFormOpenState(false, undefined));
+        await dispatch(setRecipeDetails(recipeId));
+        await setTimeout(() => {
+            setLoading(false);
+        }, 1000)
     }
-    useEffect(() => {
-        dispatch(fetchRecipes());
-    }, [dispatch])
+
+    async function deleteSelectedRecipe(e: SyntheticEvent<HTMLButtonElement>, recipeId: number){
+        await setTarget(e.currentTarget.name)
+        await setSubmitting(true);
+        await dispatch(deleteRecipe(recipeId));
+        await setTimeout(() => {
+            setSubmitting(false);
+        }, 1000)
+    }
 
     return(
         <Segment>
@@ -35,9 +45,16 @@ function RecipeList({/*selectRecipe,*/ deleteRecipe, submitting}: Props) {
                                 <div>{recipe.instructions}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button onClick={() => setRecipeToShow(recipe.id)} floated='right' content='View' color='blue' />
+                                <Button as={Link} to={`/recipes/${recipe.id}`} /*onClick={(e) => setRecipeToShow(e, recipe.id)} */
+                                    name={recipe.id}
+                                    loading={loading && target === recipe.id.toString()}
+                                    floated='right' 
+                                    content='View' 
+                                    color='blue' />
                                 <Button 
-                                    onClick={() => deleteRecipe(recipe.id)} 
+                                    name={recipe.id}
+                                    onClick={(e) => deleteSelectedRecipe(e, recipe.id)} 
+                                    loading={submitting && target === recipe.id.toString()}
                                     floated='right' 
                                     content='Delete' 
                                     color='red' 
