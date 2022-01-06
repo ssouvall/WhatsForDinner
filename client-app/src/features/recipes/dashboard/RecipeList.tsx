@@ -45,7 +45,8 @@ function RecipeList() {
                                 <div>{recipe.instructions}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button as={Link} to={`/recipes/${recipe.id}`} /*onClick={(e) => setRecipeToShow(e, recipe.id)} */
+                                <Button as={Link} to={`/recipes/${recipe.id}`} 
+                                    onClick={(e) => setRecipeToShow(e, recipe.id)}
                                     name={recipe.id}
                                     loading={loading && target === recipe.id.toString()}
                                     floated='right' 

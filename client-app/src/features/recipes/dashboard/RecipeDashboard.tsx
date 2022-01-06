@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid} from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
-import RecipeDetails from "../details/RecipeDetails";
-import RecipeForm from "../form/RecipeForm";
 import RecipeList from "./RecipeList";
 import LoadingComponent from '../../../app/layout/LoadingComponents';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +8,6 @@ import { fetchRecipes } from '../../../redux/actions/recipe/recipeActions';
 import { RootState } from "../../../redux/store";
 
 export default function RecipeDashboard(){
-    const selectedRecipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
-    const editMode: boolean = useSelector((state: RootState) => state.recipes.editMode)
     const[recipes,setRecipes] = useState<Recipe[]>([]);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
@@ -40,12 +36,7 @@ export default function RecipeDashboard(){
                 <RecipeList />
             </Grid.Column>
             <Grid.Column width='6'>
-            {selectedRecipe && selectedRecipe.id !== 0 && !editMode &&
-                <RecipeDetails 
-                    recipe={selectedRecipe}
-                /> }
-                {editMode &&
-                <RecipeForm/>}                
+            <h2>Recipe Filters</h2>  
             </Grid.Column>
         </Grid>
     )
