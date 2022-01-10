@@ -25,12 +25,16 @@ function RecipeList() {
     }
 
     async function deleteSelectedRecipe(e: SyntheticEvent<HTMLButtonElement>, recipeId: number){
+        var targetRecipe: Recipe | undefined = recipes.find(r => r.id === recipeId);
         await setTarget(e.currentTarget.name)
         await setSubmitting(true);
         await dispatch(deleteRecipe(recipeId));
-        await setTimeout(() => {
+        // await setTimeout(() => {
+        //     setSubmitting(false);
+        // }, 1000)
+        if(targetRecipe && !recipes.includes(targetRecipe)){
             setSubmitting(false);
-        }, 1000)
+        }
     }
 
     return(
