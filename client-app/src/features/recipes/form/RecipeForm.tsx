@@ -4,8 +4,7 @@ import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
 import { createRecipe, editRecipe, setFormOpenState, setRecipeDetails } from "../../../redux/actions/recipe/recipeActions";
 import { RootState } from "../../../redux/store";
-import { Link } from "react-router-dom"
-import { Modal } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import SampleModal from "../../../app/layout/SampleModal";
 
 export default function RecipeForm() {
@@ -31,29 +30,23 @@ export default function RecipeForm() {
         // dispatch(setButtonSubmittingState(submitting));
     }
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        await event.preventDefault();
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
         // setSubmitting(true);
-        await handleLoading(true);
+        handleLoading(true);
         if(recipe){
             if(!allRecipes?.find(r => r.id === recipe.id)){
-                await dispatch(createRecipe(recipe))
+                dispatch(createRecipe(recipe))
             } else {
-                await dispatch(editRecipe(recipe))
+                dispatch(editRecipe(recipe))
             }
         }
-        await setTimeout(() => {
+        setTimeout(() => {
             handleLoading(false);
             dispatch(setFormOpenState(false, recipe))
             dispatch(setRecipeDetails(recipe.id));
         }, 1000)
-        // await alert(
-        //     <div>
-        //     <h3>Recipe successfully created!</h3>
-        //     <Button as={Link} to='/recipes' floated='right' content='Home'/>
-        //     <Button as={Link} to={`/recipes/${recipe.id}`} floated="right" content='To Recipe' />
-        //     </div>
-        // )
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
@@ -70,6 +63,7 @@ export default function RecipeForm() {
                 <Form.TextArea placeholder="Instructions" value={recipe.instructions} name='instructions' onChange={handleInputChange} />
                 <SampleModal 
                     submitting={submitting}
+                    recipe={recipe}
                 />
                 {/* <Button onClick={closeForm} floated="right" type="submit" content="Cancel" /> */}
                 <Button as={Link} to='/recipes' onClick={() => dispatch(setFormOpenState(false, recipe))} floated="right" type="submit" content="Cancel" />

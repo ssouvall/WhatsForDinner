@@ -1,39 +1,48 @@
 import React from 'react'
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Button, Header, Modal } from 'semantic-ui-react'
+import { Link } from "react-router-dom";
+import { Recipe } from '../models/recipe';
 
 export interface Props {
-  submitting: boolean
+  submitting: boolean;
+  recipe: Recipe;
 }
 
-function ModalExampleBasic({submitting}:Props) {
+function ModalExampleBasic({submitting, recipe}:Props) {
   const [open, setOpen] = React.useState(false)
-
   return (
     <Modal
-      basic
       onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onOpen={() => {setOpen(true)}}
       open={open}
       size='small'
       trigger={<Button loading={submitting} floated="right" positive type="submit" content="Submit" />}
     >
-      <Header icon>
-        <Icon name='archive' />
-        Archive Old Messages
-      </Header>
-      <Modal.Content>
-        <p>
-          Your inbox is getting full, would you like us to enable automatic
-          archiving of old messages?
-        </p>
+      <Modal.Header>All set!</Modal.Header>
+      <Modal.Content image>
+        <Modal.Description>
+          <h3>
+            Your recipe has been created.          
+          </h3>
+        </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button basic color='red' inverted onClick={() => setOpen(false)}>
-          <Icon name='remove' /> No
-        </Button>
-        <Button color='green' inverted onClick={() => setOpen(false)}>
-          <Icon name='checkmark' /> Yes
-        </Button>
+        {/* <Button 
+          as={Link} 
+          to='/recipes' 
+          color='red' 
+          onClick={() => setOpen(false)}
+          content='Back to List'
+        /> */}
+        <Button
+          as={Link} 
+          to='/recipes'
+          content="Ok!"
+          labelPosition='right'
+          icon='checkmark'
+          onClick={() => setOpen(false)}
+          positive
+        />
       </Modal.Actions>
     </Modal>
   )
