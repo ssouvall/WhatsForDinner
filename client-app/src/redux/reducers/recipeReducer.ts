@@ -25,7 +25,7 @@ interface RecipeState {
 const initialState: RecipeState = {
     recipes: [],
     recipe: {
-        id: 0,
+        id: '',
         name: '',
         category: '',
         description: '',

@@ -13,7 +13,7 @@ namespace Application.Recipes
     {
         public class Query : IRequest<Recipe>
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
         }
         
         public class Handler : IRequestHandler<Query, Recipe>

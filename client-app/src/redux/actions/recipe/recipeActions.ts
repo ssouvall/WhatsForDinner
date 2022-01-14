@@ -21,8 +21,8 @@ export const fetchRecipes = () => (dispatch: Dispatch) => {
     })
 }
 
-export const setRecipeDetails = (recipeId: number | undefined) => (dispatch: Dispatch) => {
-    agent.Recipes.details(recipeId ? recipeId : -1).then(response => {
+export const setRecipeDetails = (recipeId: string | undefined) => (dispatch: Dispatch) => {
+    agent.Recipes.details(recipeId ? recipeId : '').then(response => {
         dispatch({
             type: SET_SELECTED_RECIPE,
             payload: response
@@ -30,7 +30,7 @@ export const setRecipeDetails = (recipeId: number | undefined) => (dispatch: Dis
     })
 }
 
-export const getRecipeDetails = (recipeId: number) => (dispatch: Dispatch) => {
+export const getRecipeDetails = (recipeId: string) => (dispatch: Dispatch) => {
     agent.Recipes.details(recipeId).then(response => {
         dispatch({
             type: GET_SELECTED_RECIPE,
@@ -61,7 +61,7 @@ export const editRecipe = (recipeData: Recipe) => (dispatch: Dispatch) => {
     })
 }
 
-export const deleteRecipe = (recipeId: number) => (dispatch: Dispatch) => {
+export const deleteRecipe = (recipeId: string) => (dispatch: Dispatch) => {
     agent.Recipes.delete(recipeId).then(response => {
         dispatch({
             type: DELETE_RECIPE,

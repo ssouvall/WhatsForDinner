@@ -13,7 +13,7 @@ function RecipeList() {
     const [target, setTarget] = useState('');
     const recipes: Recipe[] = useSelector((state: RootState) => state.recipes.recipes)
 
-    async function setRecipeToShow(e: SyntheticEvent<HTMLButtonElement>, recipeId: number){
+    async function setRecipeToShow(e: SyntheticEvent<HTMLButtonElement>, recipeId: string){
         console.log(e.currentTarget)
         await setTarget(e.currentTarget.name)
         await setLoading(true);
@@ -24,7 +24,7 @@ function RecipeList() {
         }, 1000)
     }
 
-    async function deleteSelectedRecipe(e: SyntheticEvent<HTMLButtonElement>, recipeId: number){
+    async function deleteSelectedRecipe(e: SyntheticEvent<HTMLButtonElement>, recipeId: string){
         var targetRecipe: Recipe | undefined = recipes.find(r => r.id === recipeId);
         await setTarget(e.currentTarget.name)
         await setSubmitting(true);

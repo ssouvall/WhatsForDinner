@@ -31,10 +31,10 @@ const requests = {
 
 const Recipes = {
     list: () => requests.get<Recipe[]>('/recipes'),
-    details: (id: number) => requests.get<Recipe>(`/recipes/${id}`),
+    details: (id: string) => requests.get<Recipe>(`/recipes/${id}`),
     create: (recipe: Recipe) => requests.post<void>('/recipes', recipe),
     update: (recipe: Recipe) => requests.put<void>(`/recipes/${recipe.id}`, recipe),
-    delete: (id: number) => requests.del<void>(`/recipes/${id}`)
+    delete: (id: string) => requests.del<void>(`/recipes/${id}`)
 }
 
 const agent = {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain;
@@ -15,7 +16,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Recipe>> GetRecipe(int id)
+        public async Task<ActionResult<Recipe>> GetRecipe(Guid id)
         {
             return await Mediator.Send(new Details.Query{Id = id});
         }
@@ -26,14 +27,14 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditActivity(int id, Recipe recipe)
+        public async Task<IActionResult> EditRecipe(Guid id, Recipe recipe)
         {
             recipe.Id = id;
             return Ok(await Mediator.Send(new Edit.Command{Recipe = recipe}));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivity(int id)
+        public async Task<IActionResult> DeleteRecipe(Guid id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
