@@ -6,6 +6,7 @@ import { createRecipe, editRecipe, setFormOpenState, setRecipeDetails } from "..
 import { RootState } from "../../../redux/store";
 import { Link, useHistory } from "react-router-dom";
 import SampleModal from "../../../app/layout/SampleModal";
+import { v4 as uuid } from 'uuid';
 
 export default function RecipeForm() {
     const dispatch = useDispatch()
@@ -38,18 +39,20 @@ export default function RecipeForm() {
         handleLoading(true);
         if(recipe){
             if(!allRecipes?.find(r => r.id === recipe.id)){
+                recipe.id = uuid();
                 dispatch(createRecipe(recipe))
             } else {
                 dispatch(editRecipe(recipe))
             }
+            console.log(recipe);
         }
         setTimeout(() => {
             handleLoading(false);
             dispatch(setFormOpenState(false, recipe))
             dispatch(setRecipeDetails(recipe.id));
         }, 1000)
-        if(selectedRecipe){
-            history.push(`/recipes/${selectedRecipe.id}`);
+        if(recipe){
+            history.push(`/recipes/${recipe.id}`);
         }
     }
 
