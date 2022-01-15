@@ -46,11 +46,8 @@ export default function RecipeForm() {
             }
             console.log(recipe);
         }
-        setTimeout(() => {
-            handleLoading(false);
-            dispatch(setFormOpenState(false, recipe))
-            dispatch(setRecipeDetails(recipe.id));
-        }, 1000)
+        handleLoading(false);
+        dispatch(setRecipeDetails(recipe.id));
         if(recipe){
             history.push(`/recipes/${recipe.id}`);
         }

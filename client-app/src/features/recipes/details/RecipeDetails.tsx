@@ -11,7 +11,8 @@ export default function RecipeDetails(){
     const dispatch = useDispatch();
     const recipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
 
-    if(recipe){
+    if(recipe && recipe.id){
+        console.log(recipe)
         return(
             <Card fluid>
                 <Image src={`/assets/categoryImages/${recipe.category}.jpg`} />
