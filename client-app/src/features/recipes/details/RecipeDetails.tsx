@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Button, Card, Image } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ export default function RecipeDetails(){
                     <Button.Group widths='2'>
                         {/* <Button onClick={() => openForm(recipe.id)} basic color='blue' content='Edit' /> */}
                         {/* <Button onClick={cancelSelectRecipe} basic color='grey' content='Cancel' /> */}
-                        <Button as={Link} to={`/manage/${recipe.id}`} onClick={() => dispatch(setFormOpenState(true, recipe))} basic color='blue' content='Edit' />
+                        <Button as={Link} to={`/manage/${recipe.id}`} basic color='blue' content='Edit' />
                         <Button as={Link} to='/recipes' onClick={() => dispatch(setRecipeDetails(undefined))} basic color='grey' content='Cancel' />
                     </Button.Group>
                 </Card.Content>

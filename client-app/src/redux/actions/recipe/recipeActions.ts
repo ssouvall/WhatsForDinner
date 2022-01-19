@@ -22,7 +22,7 @@ export const fetchRecipes = () => (dispatch: Dispatch) => {
 }
 
 export const setRecipeDetails = (recipeId: string | undefined) => (dispatch: Dispatch) => {
-    agent.Recipes.details(recipeId ? recipeId : '').then(response => {
+    agent.Recipes.details(recipeId ? recipeId : '').then(response => {       
         dispatch({
             type: SET_SELECTED_RECIPE,
             payload: response

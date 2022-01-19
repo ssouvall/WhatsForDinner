@@ -13,13 +13,13 @@ function RecipeList() {
     const [target, setTarget] = useState('');
     const recipes: Recipe[] = useSelector((state: RootState) => state.recipes.recipes)
 
-    async function setRecipeToShow(e: SyntheticEvent<HTMLButtonElement>, recipeId: string){
+    function setRecipeToShow(e: SyntheticEvent<HTMLButtonElement>, recipeId: string){
         console.log(e.currentTarget)
-        await setTarget(e.currentTarget.name)
-        await setLoading(true);
-        await dispatch(setFormOpenState(false, undefined));
-        await dispatch(setRecipeDetails(recipeId));
-        await setTimeout(() => {
+        setTarget(e.currentTarget.name)
+        setLoading(true);
+        // await dispatch(setFormOpenState(false, undefined));
+        dispatch(setRecipeDetails(recipeId));
+        setTimeout(() => {
             setLoading(false);
         }, 1000)
     }

@@ -8,6 +8,7 @@ import { fetchRecipes } from '../../../redux/actions/recipe/recipeActions';
 import { RootState } from "../../../redux/store";
 
 export default function RecipeDashboard(){
+   const [state, setState] = useState({});
     const[recipes,setRecipes] = useState<Recipe[]>([]);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
@@ -26,6 +27,9 @@ export default function RecipeDashboard(){
           setLoading(false);
         }, 1000)
       })
+      return () => {
+        setState({}); 
+    };
     }, [dispatch, allRecipes])
   
     if (loading) return <LoadingComponent content='Loading app' />
