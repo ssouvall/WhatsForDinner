@@ -55,14 +55,14 @@ function RecipeList() {
                                     loading={loading && target === recipe.id.toString()}
                                     floated='right' 
                                     content='View' 
-                                    color='blue' />
+                                    color='green' />
                                 <Button 
                                     name={recipe.id}
                                     onClick={(e) => deleteSelectedRecipe(e, recipe.id)} 
                                     loading={submitting && target === recipe.id.toString()}
                                     floated='right' 
                                     content='Delete' 
-                                    color='red' 
+                                    color='orange' 
                                 />
                                 <Label basic content={recipe.category}/>
                             </Item.Extra>
