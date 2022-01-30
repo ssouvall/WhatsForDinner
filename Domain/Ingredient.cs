@@ -14,7 +14,9 @@ namespace Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }
-        public string QuantityUnit { get; set; }
+        
+         #nullable enable
+        public string? QuantityUnit { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

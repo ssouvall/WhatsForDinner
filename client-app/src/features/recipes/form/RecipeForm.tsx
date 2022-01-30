@@ -42,7 +42,6 @@ export default function RecipeForm() {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         event.stopPropagation();
-        console.log(event.currentTarget)
         
         // handleLoading(true);
         if(recipe){

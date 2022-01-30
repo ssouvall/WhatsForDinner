@@ -5,7 +5,8 @@ import {
     GET_SELECTED_RECIPE,
     NEW_RECIPE,
     SET_SELECTED_RECIPE,
-    SET_FORM_OPEN_STATE
+    SET_FORM_OPEN_STATE,
+    ADD_INGREDIENT_TO_RECIPE
 } from '../actions/recipe/recipeTypes';
 import { Recipe } from '../../app/models/recipe'
 
