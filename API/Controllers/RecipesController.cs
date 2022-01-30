@@ -4,11 +4,18 @@ using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Application.Recipes;
+using Application;
 
 namespace API.Controllers
 {
     public class RecipesController : BaseApiController
     {
+        private readonly IIngredientService _ingredientService;
+        public RecipesController(IIngredientService ingredientService)
+        {
+            _ingredientService = ingredientService;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Recipe>>> GetRecipes()
         {
@@ -37,6 +44,12 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteRecipe(Guid id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
+        }
+
+        [HttpPost("{recipeId}/{ingredientId}")]
+        public async Task AddIngredientToRecipe(Guid recipeId, Guid ingredientId)
+        {
+            await _ingredientService.AddIngredientToRecipe(recipeId, ingredientId);
         }
     }
 }

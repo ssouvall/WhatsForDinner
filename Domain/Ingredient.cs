@@ -7,11 +7,14 @@ namespace Domain
 {
     public class Ingredient
     {
+        public Ingredient()
+        {
+            this.Recipes = new HashSet<Recipe>();
+        }
         public Guid Id { get; set; }
-        public Guid RecipeId { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }
         public string QuantityUnit { get; set; }
-        public virtual Recipe Recipe { get; set; }
+        public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

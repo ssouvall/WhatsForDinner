@@ -5,6 +5,10 @@ namespace Domain
 {
     public class Recipe
     {
+        public Recipe()
+        {
+            this.Ingredients = new HashSet<Ingredient>();
+        }
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
