@@ -32,7 +32,7 @@ export default function RecipeDashboard(){
     };
     }, [dispatch, allRecipes])
   
-    if (loading) return <LoadingComponent content='Loading app' />
+    if (loading) return <LoadingComponent content='Loading...' />
 
     return (
         <Grid>

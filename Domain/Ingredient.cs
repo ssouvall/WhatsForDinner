@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Enums.Ingredients;
 
 namespace Domain
 {
@@ -13,10 +14,7 @@ namespace Domain
         }
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public double Quantity { get; set; }
-        
-         #nullable enable
-        public string? QuantityUnit { get; set; }
+        public IngredientCategory Category { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

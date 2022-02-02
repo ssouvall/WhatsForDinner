@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain;
+using Domain.Enums.Ingredients;
 
 namespace Persistence
 {
@@ -87,6 +88,67 @@ namespace Persistence
             };
             
             await context.Recipes.AddRangeAsync(recipes);
+            await context.SaveChangesAsync();
+        }
+        public static async Task SeedIngredientData(DataContext context)
+        {
+            if (context.Ingredients.Any()) return;
+            
+            var ingredients = new List<Ingredient>
+            {
+                new Ingredient
+                {
+                    Name = "Ingredient One",
+                    Category = IngredientCategory.Meat 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Two",
+                    Category = IngredientCategory.Meat 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Three",
+                    Category = IngredientCategory.Meat 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Four",
+                    Category = IngredientCategory.Dairy 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Five",
+                    Category = IngredientCategory.Dairy 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Six",
+                    Category = IngredientCategory.Candy 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Seven",
+                    Category = IngredientCategory.Baking 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Eight",
+                    Category = IngredientCategory.Cereals 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Nine",
+                    Category = IngredientCategory.Produce 
+                },
+                new Ingredient
+                {
+                    Name = "Ingredient Ten",
+                    Category = IngredientCategory.Produce 
+                },
+            };
+            
+            await context.Ingredients.AddRangeAsync(ingredients);
             await context.SaveChangesAsync();
         }
     }

@@ -23,3 +23,7 @@ code {
   background-color: #F2711C;
   color: white;
 }
+
+#createIngredientsBtn {
+  margin-top: 7%;
+}

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from "react";
-import { Button, Dropdown, DropdownProps, Form, Segment } from "semantic-ui-react";
+import { Button, Container, Dropdown, DropdownProps, Form, Segment } from "semantic-ui-react";
 
 function IngredientForm(){
     const [ingredient, setIngredient] = useState({
@@ -28,21 +28,23 @@ function IngredientForm(){
     }
 
     return(
-        <Segment>
-            <Form onSubmit={handleSubmit}>
-                <Form.Input placeholder="Name" name='name' value={ingredient.name} onChange={handleInputChange} />
-                <Dropdown 
-                    placeholder="Category" 
-                    name="category"
-                    value={ingredient.category}
-                    fluid
-                    search
-                    selection
-                    options={categoryOptions}
-                    onChange={handleDropDownChange} 
-                    />
-                <Button floated="right" positive type="submit" content="Submit" />
-            </Form>
+        <Segment clearing>
+            <Container>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Input placeholder="Name" name='name' value={ingredient.name} onChange={handleInputChange} />
+                    <Dropdown 
+                        placeholder="Category" 
+                        name="category"
+                        value={ingredient.category}
+                        fluid
+                        search
+                        selection
+                        options={categoryOptions}
+                        onChange={handleDropDownChange} 
+                        />
+                    <Button id="createIngredientsBtn" floated="right" positive type="submit" content="Submit" />
+                </Form>
+            </Container>
         </Segment>
     )
 }

@@ -74,8 +74,4 @@ function RecipeList() {
     );
 }
 
-// const mapStateToProps = (state: RootState) => ({
-//     recipes: state.recipes.recipes
-// })
-
 export default RecipeList;
