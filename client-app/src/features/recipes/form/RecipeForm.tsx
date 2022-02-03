@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState, useEffect, useCallback } from "react";
-import { Button, Form, Segment } from "semantic-ui-react";
+import React, { ChangeEvent, useState, useEffect, useCallback, useRef, SyntheticEvent } from "react";
+import { Button, Dropdown, DropdownProps, Form, Segment } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
 import { createRecipe, editRecipe, setFormOpenState, setRecipeDetails } from "../../../redux/actions/recipe/recipeActions";
@@ -9,12 +9,15 @@ import SampleModal from "../../../app/layout/SampleModal";
 import { v4 as uuid } from 'uuid';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import agent from "../../../app/api/agent";
+import { DropDownDataItem } from "../../../app/models/dropDownDataItem";
+import { Ingredient } from "../../../app/models/ingredient";
 
 export default function RecipeForm() {
     const dispatch = useDispatch()
     const history = useHistory()
     const [submitting, setSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+    const [ingredients, setIngredients] = useState<DropDownDataItem<Ingredient>[]>([]);
     let selectedRecipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
     let allRecipes: Recipe[] | undefined = useSelector((state: RootState) => state.recipes.recipes)
 
@@ -26,14 +29,29 @@ export default function RecipeForm() {
         instructions: ''
     });
 
+    const [ingredientSelection, setIngredientSelection] = useState({
+        ingredient: ""
+    });
+
     useEffect(() => {
         if (selectedRecipe !== undefined) setRecipe(selectedRecipe)
-        if (submitted) {
-            // if(selectedRecipe){
-            //     history.push(`/recipes/${selectedRecipe.id}`);
-            // }
-        }
-    }, [selectedRecipe, submitted, history])
+        agent.Ingredients.list().then(data => {
+            if(data.length !== 0){
+                data.forEach(d => {
+                    var dataObj = {
+                        key: d.id,
+                        value: d.name,
+                        text: d.name
+                    }
+                    if (!ingredients.includes(dataObj)){
+                        ingredients.push(dataObj);
+                    }
+                })
+                console.log(ingredients);
+                setIngredients(ingredients);
+            }
+        })
+    }, [selectedRecipe, ingredients])
 
     function handleLoading(submitting: boolean){
         setSubmitting(submitting);
@@ -65,6 +83,10 @@ export default function RecipeForm() {
     function handleInputChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
         const {name, value} = event.target;
         setRecipe({...recipe, [name]: value}) 
+    }
+
+    function handleDropDownChange(event: SyntheticEvent<HTMLElement>, data: DropdownProps){
+        setIngredientSelection({...ingredientSelection, [data.name]: data.value})
     }
 
     function sweetAlertFire(isNewRecipe: boolean){
@@ -99,6 +121,16 @@ export default function RecipeForm() {
                         submitting={submitting}
                         recipe={recipe}
                     /> */}
+                    <Dropdown 
+                        placeholder="Ingredient " 
+                        name="ingredient"
+                        value={ingredientSelection.ingredient}
+                        fluid
+                        search
+                        selection
+                        options={ingredients}
+                        onChange={handleDropDownChange} 
+                        />
                     <Button loading={submitting} floated="right" positive type="submit" content="Submit" />
                     {/* <Button onClick={closeForm} floated="right" type="submit" content="Cancel" /> */}
                     {/* <Button as={Link} to='/recipes' onClick={() => dispatch(setFormOpenState(false, recipe))} floated="right" type="submit" content="Cancel" /> */}
