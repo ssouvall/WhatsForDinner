@@ -2,10 +2,9 @@ import React, { ChangeEvent, useState, useEffect, useCallback, useRef, Synthetic
 import { Button, Dropdown, DropdownProps, Form, Segment } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
-import { createRecipe, editRecipe, setFormOpenState, setRecipeDetails } from "../../../redux/actions/recipe/recipeActions";
+import { createRecipe, editRecipe } from "../../../redux/actions/recipe/recipeActions";
 import { RootState } from "../../../redux/store";
-import { Link, useHistory, Redirect } from "react-router-dom";
-import SampleModal from "../../../app/layout/SampleModal";
+import { useHistory } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -61,23 +60,17 @@ export default function RecipeForm() {
         event.preventDefault();
         event.stopPropagation();
         
-        // handleLoading(true);
         if(recipe){
             if(!allRecipes?.find(r => r.id === recipe.id)){
                 recipe.id = uuid();
                 dispatch(createRecipe(recipe))
                 sweetAlertFire(true);
-                // dispatch(setRecipeDetails(recipe.id));
             } else {
-                // dispatch(setFormOpenState(false, recipe));
                 dispatch(editRecipe(recipe))
                 sweetAlertFire(false);
-                // dispatch(setRecipeDetails(recipe.id));
             }
         }
         history.push('/recipes');
-        // handleLoading(false);
-        // setSubmitted(true);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {

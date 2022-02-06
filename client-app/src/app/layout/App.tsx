@@ -22,7 +22,6 @@ function App() {
         <Route key={location.key} path={['/createRecipe', '/manage/:id']} component={RecipeForm} />
         <Route exact path='/ingredients' component={IngredientDashboard} />
         <Route exact path='/ingredients/:id' component={IngredientDetails} />
-        <Route key={location.key} path={['/createIngredient', '/manage/:id']} component={IngredientForm} />
       </Container>
     </Fragment>
   );

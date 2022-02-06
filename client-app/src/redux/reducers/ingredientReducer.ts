@@ -26,7 +26,7 @@ const initialState: IngredientState = {
     ingredient: {
         id: '',
         name: '',
-        category: ''
+        category: 0
     },
     editMode: false
 }
