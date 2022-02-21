@@ -7,6 +7,6 @@ namespace Application
 {
     public interface IIngredientService
     {
-        Task AddIngredientToRecipe(Guid recipeId, Guid ingredientId);
+        Task AddIngredientItemToRecipe(Guid recipeId, Guid ingredientId, int quantity, string quantityUnit, string notes);
     }
 }

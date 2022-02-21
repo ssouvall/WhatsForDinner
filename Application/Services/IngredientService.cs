@@ -15,14 +15,22 @@ namespace Application.Services
         {
             _context = context;
         }
-        public async Task AddIngredientToRecipe(Guid recipeId, Guid ingredientId)
+        public async Task AddIngredientItemToRecipe(Guid recipeId, Guid ingredientId, int quantity, string quantityUnit, string notes)
         {
             Recipe recipe = await _context.Recipes.SingleOrDefaultAsync(r => r.Id == recipeId); 
             Ingredient ingredient = await _context.Ingredients.SingleOrDefaultAsync(ing => ing.Id == ingredientId);
             
             if(recipe is not null && ingredient is not null)
             {
-                recipe.Ingredients.Add(ingredient);
+                var newItem = new IngredientListItem{
+                    RecipeId = recipeId,
+                    Ingredient = ingredient,
+                    Quantity = quantity,
+                    QuantityUnit = quantityUnit,
+                    Notes = notes,
+                    isComplete = false
+                };
+                recipe.IngredientListItems.Add(newItem);
                 await _context.SaveChangesAsync();
             }
         }

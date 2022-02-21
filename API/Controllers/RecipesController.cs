@@ -46,10 +46,10 @@ namespace API.Controllers
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
 
-        [HttpPost("{recipeId}/{ingredientId}")]
-        public async Task AddIngredientToRecipe(Guid recipeId, Guid ingredientId)
-        {
-            await _ingredientService.AddIngredientToRecipe(recipeId, ingredientId);
-        }
+        // [HttpPost("{recipeId}/{ingredientId}")]
+        // public async Task AddIngredientToRecipe(Guid recipeId, Guid ingredientId)
+        // {
+        //     await _ingredientService.AddIngredientToRecipe(recipeId, ingredientId);
+        // }
     }
 }
