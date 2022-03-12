@@ -24,7 +24,7 @@ namespace Application.Services
             {
                 var newItem = new IngredientListItem{
                     RecipeId = recipeId,
-                    Ingredient = ingredient,
+                    IngredientId = ingredient.Id,
                     Quantity = quantity,
                     QuantityUnit = quantityUnit,
                     Notes = notes,

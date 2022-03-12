@@ -30,7 +30,8 @@ const initialState: RecipeState = {
         name: '',
         category: '',
         description: '',
-        instructions: ''
+        instructions: '',
+        ingredientListItems: []
     },
     editMode: false
 }

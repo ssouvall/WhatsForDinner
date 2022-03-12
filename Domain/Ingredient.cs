@@ -11,5 +11,6 @@ namespace Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public IngredientCategory Category { get; set; }
+        public virtual ICollection<IngredientListItem> IngredientListItems { get; set; } = new HashSet<IngredientListItem>();
     }
 }
