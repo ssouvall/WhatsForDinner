@@ -7,13 +7,13 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.Ingredients
+namespace Application.Logic.IngredientListItems
 {
     public class Create
     {
         public class Command : IRequest
         {
-            public Ingredient Ingredient { get; set; }
+            public IngredientListItem IngredientListItem { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -26,7 +26,7 @@ namespace Application.Ingredients
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.Ingredients.Add(request.Ingredient);
+                _context.IngredientListItems.Add(request.IngredientListItem);
                 await _context.SaveChangesAsync();
                 return Unit.Value;
             }

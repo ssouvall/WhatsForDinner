@@ -1,5 +1,5 @@
 using Application.Core;
-using Application.Recipes;
+using Application.Logic.Recipes;
 using Microsoft.Extensions.Configuration;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using Application;
-using Application.Services;
 
 namespace API.Extensions
 {
@@ -33,8 +32,6 @@ namespace API.Extensions
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
-
-            services.AddScoped<IIngredientService, IngredientService>();
 
             return services;
          }

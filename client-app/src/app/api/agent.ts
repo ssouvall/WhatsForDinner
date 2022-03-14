@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { Ingredient } from "../models/ingredient";
+import { IngredientListItem } from "../models/ingredientListItem";
 import { Recipe } from "../models/recipe";
 
 //add delay on loading
@@ -47,9 +48,19 @@ const Ingredients = {
     delete: (id: string) => requests.del<void>(`/ingredients/${id}`),
 }
 
+const IngredientListItems = {
+    listByRecipe: (recipeId: string) => requests.get<IngredientListItem[]>(`/ingredientListItems/GetIngredientListItemsByRecipe/${recipeId}`),
+    details: (id: string) => requests.get<IngredientListItem>(`/ingredientListItems/${id}`),
+    create: (ingredientListItem: IngredientListItem) => requests.post<void>('/ingredientListItems', ingredientListItem),
+    createBulk: (ingredientListItems: IngredientListItem[]) => requests.post<void>('/ingredientListItems/CreateIngredientListItemBulk', ingredientListItems),
+    update: (ingredientListItem: IngredientListItem) => requests.put<void>(`/ingredientListItems/${ingredientListItem.id}`, ingredientListItem),
+    delete: (id: string) => requests.del<void>(`/ingredientListItems/${id}`),
+}
+
 const agent = {
     Recipes,
-    Ingredients
+    Ingredients,
+    IngredientListItems
 }
 
 export default agent;

@@ -5,6 +5,7 @@ import { RootState } from "../../../redux/store";
 import { useState, SyntheticEvent } from "react";
 import { deleteRecipe, setFormOpenState, setRecipeDetails } from '../../../redux/actions/recipe/recipeActions';
 import { Link } from "react-router-dom";
+import { fetchIngredientListItemsByRecipe } from "../../../redux/actions/ingredientListItem/ingredientListItemActions";
 
 function RecipeList() {
     const dispatch = useDispatch()
@@ -19,6 +20,7 @@ function RecipeList() {
         setLoading(true);
         // await dispatch(setFormOpenState(false, undefined));
         dispatch(setRecipeDetails(recipeId));
+        dispatch(fetchIngredientListItemsByRecipe(recipeId));
         setTimeout(() => {
             setLoading(false);
         }, 1000)

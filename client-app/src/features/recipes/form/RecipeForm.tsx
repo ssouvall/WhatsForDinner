@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect, useCallback, useRef, SyntheticEvent } from "react";
+import React, { ChangeEvent, useState, useEffect, SyntheticEvent } from "react";
 import { Button, Dropdown, DropdownProps, Form, Segment } from "semantic-ui-react";
 import { Recipe } from "../../../app/models/recipe";
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import agent from "../../../app/api/agent";
 import { DropDownDataItem } from "../../../app/models/dropDownDataItem";
 import { Ingredient } from "../../../app/models/ingredient";
 import { IngredientListItem } from "../../../app/models/ingredientListItem";
+import { createIngredientListItems } from "../../../redux/actions/ingredientListItem/ingredientListItemActions";
 
 export default function RecipeForm() {
     const dispatch = useDispatch()
@@ -65,6 +66,7 @@ export default function RecipeForm() {
             selectedIngredients.forEach(ingredient => {
                 var newIngredientItem: IngredientListItem = {
                     id: uuid(),
+                    name: ingredient.value,
                     ingredientId: ingredient.key,
                     notes: "",
                     quantity: 1,
@@ -74,6 +76,7 @@ export default function RecipeForm() {
                 }
                 recipe.ingredientListItems.push(newIngredientItem);
             })
+            dispatch(createIngredientListItems(recipe.ingredientListItems))
         }
     }
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Persistence;
 
-namespace Application.Ingredients
+namespace Application.Logic.Ingredients
 {
     public class Delete
     {

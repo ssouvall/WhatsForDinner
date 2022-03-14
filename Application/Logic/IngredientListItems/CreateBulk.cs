@@ -1,16 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.Recipes
+namespace Application.Logic.IngredientListItems
 {
-    public class Delete
+    public class CreateBulk
     {
         public class Command : IRequest
         {
-            public Guid Id { get; set; }
+            public List<IngredientListItem> IngredientListItems { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -23,11 +26,17 @@ namespace Application.Recipes
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var recipe = await _context.Recipes.FindAsync(request.Id);
-                _context.Remove(recipe);
-                await _context.SaveChangesAsync();
+                if(request.IngredientListItems.Count > 0)
+                {
+                    foreach(var item in request.IngredientListItems)
+                    {
+                        _context.IngredientListItems.Add(item);
+                        await _context.SaveChangesAsync();
+                    }
+                }
                 return Unit.Value;
             }
         }
+        
     }
 }

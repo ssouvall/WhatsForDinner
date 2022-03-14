@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Application.Recipes;
+using Application.Logic.Recipes;
 using Application;
 
 namespace API.Controllers
 {
     public class RecipesController : BaseApiController
     {
-        private readonly IIngredientService _ingredientService;
-        public RecipesController(IIngredientService ingredientService)
-        {
-            _ingredientService = ingredientService;
-        }
-
         [HttpGet]
         public async Task<ActionResult<List<Recipe>>> GetRecipes()
         {
@@ -29,7 +23,8 @@ namespace API.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> CreateRecipe(Recipe recipe){
+        public async Task<IActionResult> CreateRecipe(Recipe recipe)
+        {
             return Ok(await Mediator.Send(new Create.Command {Recipe = recipe}));
         }
 
@@ -45,11 +40,5 @@ namespace API.Controllers
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
-
-        // [HttpPost("{recipeId}/{ingredientId}")]
-        // public async Task AddIngredientToRecipe(Guid recipeId, Guid ingredientId)
-        // {
-        //     await _ingredientService.AddIngredientToRecipe(recipeId, ingredientId);
-        // }
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,13 +5,13 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.Recipes
+namespace Application.Logic.IngredientListItems
 {
     public class Edit
     {
         public class Command : IRequest
         {
-            public Recipe Recipe { get; set; }
+            public IngredientListItem IngredientListItem { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -29,9 +26,9 @@ namespace Application.Recipes
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var recipe = await _context.Recipes.FindAsync(request.Recipe.Id);
+                var ingredientListItem = await _context.IngredientListItems.FindAsync(request.IngredientListItem.Id);
 
-                _mapper.Map(request.Recipe, recipe);
+                _mapper.Map(request.IngredientListItem, ingredientListItem);
 
                 await _context.SaveChangesAsync();
 

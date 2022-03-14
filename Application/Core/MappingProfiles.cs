@@ -9,6 +9,7 @@ namespace Application.Core
         {
             CreateMap<Recipe, Recipe>();
             CreateMap<Ingredient, Ingredient>();
+            CreateMap<IngredientListItem, IngredientListItem>();
         }
         
     }

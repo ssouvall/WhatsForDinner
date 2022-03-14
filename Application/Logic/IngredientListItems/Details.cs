@@ -7,16 +7,16 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.Ingredients
+namespace Application.Logic.IngredientListItems
 {
     public class Details
     {
-        public class Query : IRequest<Ingredient>
+        public class Query : IRequest<IngredientListItem>
         {
             public Guid Id { get; set; }
         }
         
-        public class Handler : IRequestHandler<Query, Ingredient>
+        public class Handler : IRequestHandler<Query, IngredientListItem>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -24,9 +24,9 @@ namespace Application.Ingredients
                 _context = context;
             }
 
-            public async Task<Ingredient> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<IngredientListItem> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Ingredients.FindAsync(request.Id); 
+                return await _context.IngredientListItems.FindAsync(request.Id); 
             }
         }
     }

@@ -5,18 +5,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Recipes
+namespace Application.Logic.Ingredients
 {
-    public class Details
+    public class List
     {
-        public class Query : IRequest<Recipe>
-        {
-            public Guid Id { get; set; }
-        }
-        
-        public class Handler : IRequestHandler<Query, Recipe>
+        public class Query : IRequest<List<Ingredient>> { }
+        public class Handler : IRequestHandler<Query, List<Ingredient>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -24,10 +21,11 @@ namespace Application.Recipes
                 _context = context;
             }
 
-            public async Task<Recipe> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<Ingredient>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Recipes.FindAsync(request.Id); 
+                return await _context.Ingredients.ToListAsync();
             }
         }
+
     }
 }

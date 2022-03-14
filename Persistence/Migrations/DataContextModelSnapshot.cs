@@ -42,6 +42,9 @@ namespace Persistence.Migrations
                     b.Property<Guid>("IngredientId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
@@ -63,7 +66,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("IngredientListItem");
+                    b.ToTable("IngredientListItems");
                 });
 
             modelBuilder.Entity("Domain.Recipe", b =>
@@ -91,7 +94,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.IngredientListItem", b =>
                 {
-                    b.HasOne("Domain.Ingredient", null)
+                    b.HasOne("Domain.Ingredient", "Ingredient")
                         .WithMany("IngredientListItems")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -102,6 +105,8 @@ namespace Persistence.Migrations
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Ingredient");
 
                     b.Navigation("Recipe");
                 });

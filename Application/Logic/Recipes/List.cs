@@ -8,12 +8,12 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Ingredients
+namespace Application.Logic.Recipes
 {
     public class List
     {
-        public class Query : IRequest<List<Ingredient>> { }
-        public class Handler : IRequestHandler<Query, List<Ingredient>>
+        public class Query : IRequest<List<Recipe>> { }
+        public class Handler : IRequestHandler<Query, List<Recipe>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -21,9 +21,9 @@ namespace Application.Ingredients
                 _context = context;
             }
 
-            public async Task<List<Ingredient>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<Recipe>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Ingredients.ToListAsync();
+                return await _context.Recipes.ToListAsync();
             }
         }
 

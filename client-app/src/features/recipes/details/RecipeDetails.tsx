@@ -6,10 +6,12 @@ import { setRecipeDetails, setFormOpenState } from '../../../redux/actions/recip
 import { RootState } from "../../../redux/store";
 import LoadingComponent from '../../../app/layout/LoadingComponents';
 import { Link } from "react-router-dom"
+import { IngredientListItem } from "../../../app/models/ingredientListItem";
 
 export default function RecipeDetails(){
     const dispatch = useDispatch();
-    const recipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe)
+    const recipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe);
+    const ingredientListItems: IngredientListItem[] | undefined = useSelector((state: RootState) => state.ingredientListItems.ingredientListItems)
 
     if(recipe && recipe.id){
         console.log(recipe)
@@ -26,6 +28,13 @@ export default function RecipeDetails(){
                 </Card.Description>
                 <Card.Description>
                     {recipe.instructions}
+                </Card.Description>
+                 <Card.Description>
+                     <ul>
+                    {ingredientListItems.map((item) => (
+                        <li>{`${item.quantity} ${item.quantityUnit} ${item.name}`}</li>
+                    ))}
+                    </ul>
                 </Card.Description>
                 </Card.Content>
                 <Card.Content extra>
