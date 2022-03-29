@@ -36,6 +36,10 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             services.AddScoped(typeof(IBaseRepositoryService<>), typeof(BaseRepositoryService<>));
+            services.AddScoped<IShoppingListService, ShoppingListService>();
+            services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<IIngredientListItemService, IngredientListItemService>();
 
             return services;
          }

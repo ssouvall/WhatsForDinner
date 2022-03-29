@@ -46,9 +46,9 @@ namespace Application.Logic.Services
             return placeholder;
         }
 
-        public async Task<List<T>> List()
+        public IQueryable<T> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            return _context.Set<T>();
         }
     }
 }

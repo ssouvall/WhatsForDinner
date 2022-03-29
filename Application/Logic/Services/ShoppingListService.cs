@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Contracts;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Logic.Services
 {
@@ -26,7 +27,7 @@ namespace Application.Logic.Services
 
         public async Task<List<ShoppingList>> ListShoppingLists()
         {
-            return await _baseRepositoryService.List();
+            return await _baseRepositoryService.GetAll().ToListAsync();
         }
 
         public async Task<ShoppingList> GetShoppingListDetails(Guid id)

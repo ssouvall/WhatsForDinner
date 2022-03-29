@@ -7,7 +7,7 @@ namespace Application.Contracts
 {
     public interface IBaseRepositoryService<T> where T : class
     {
-        Task<List<T>> List();
+        IQueryable<T> GetAll();
 
         Task<T> GetDetails(object id);
 
