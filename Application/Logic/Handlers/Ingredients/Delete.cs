@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using MediatR;
 using Persistence;
 
@@ -15,17 +16,15 @@ namespace Application.Logic.Handlers.Ingredients
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IIngredientService _ingredientService;
+            public Handler(IIngredientService ingredientService)
             {
-                _context = context;
+                _ingredientService = ingredientService;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var ingredient = await _context.Ingredients.FindAsync(request.Id);
-                _context.Remove(ingredient);
-                await _context.SaveChangesAsync();
+                await _ingredientService.DeleteIngredient(request.Id);
                 return Unit.Value;
             }
         }

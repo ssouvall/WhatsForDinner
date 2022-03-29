@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -16,22 +17,16 @@ namespace Application.Logic.Handlers.ShoppingLists
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            private readonly IShoppingListService _shoppingListService;
+            public Handler(IShoppingListService shoppingListService)
             {
-                _mapper = mapper;
-                _context = context;
+                _shoppingListService = shoppingListService;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var shoppingList = await _context.ShoppingLists.FindAsync(request.ShoppingList.Id);
-
-                _mapper.Map(request.ShoppingList, shoppingList);
-
-                await _context.SaveChangesAsync();
-
+                var shoppingList = await _shoppingListService.GetShoppingListDetails(request.ShoppingList.Id);
+                await _shoppingListService.EditShoppingList(request.ShoppingList.Id, shoppingList);
                 return Unit.Value;
             }
         }

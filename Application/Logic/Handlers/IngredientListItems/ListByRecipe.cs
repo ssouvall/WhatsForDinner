@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -18,17 +19,15 @@ namespace Application.Logic.Handlers.IngredientListItems
         }
         public class Handler : IRequestHandler<Query, List<IngredientListItem>>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IIngredientListItemService _ingredientListItemService;
+            public Handler(IIngredientListItemService ingredientListItemService)
             {
-                _context = context;
+                _ingredientListItemService = ingredientListItemService;
             }
 
             public async Task<List<IngredientListItem>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.IngredientListItems
-                    .Where(ili => ili.RecipeId == request.RecipeId)
-                    .ToListAsync();
+                return await _ingredientListItemService.ListIngredientListItemByRecipe(request.RecipeId);
             }
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using MediatR;
 using Persistence;
 
@@ -15,17 +16,15 @@ namespace Application.Logic.Handlers.ShoppingLists
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IShoppingListService _shoppingListService;
+            public Handler(IShoppingListService shoppingListService)
             {
-                _context = context;
+                _shoppingListService = shoppingListService;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var shoppingList = await _context.ShoppingLists.FindAsync(request.Id);
-                _context.Remove(shoppingList);
-                await _context.SaveChangesAsync();
+                await _shoppingListService.DeleteShoppingList(request.Id);
                 return Unit.Value;
             }
         }

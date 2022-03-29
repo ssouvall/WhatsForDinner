@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using Domain;
 using MediatR;
 using Persistence;
@@ -18,15 +19,15 @@ namespace Application.Logic.Handlers.IngredientListItems
         
         public class Handler : IRequestHandler<Query, IngredientListItem>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IIngredientListItemService _ingredientListItemService;
+            public Handler(IIngredientListItemService ingredientListItemService)
             {
-                _context = context;
+                _ingredientListItemService = ingredientListItemService;
             }
 
             public async Task<IngredientListItem> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.IngredientListItems.FindAsync(request.Id); 
+                return await _ingredientListItemService.GetIngredientListItemDetails(request.Id); 
             }
         }
     }

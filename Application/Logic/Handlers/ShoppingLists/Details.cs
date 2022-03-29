@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using Domain;
 using MediatR;
 using Persistence;
@@ -18,15 +19,15 @@ namespace Application.Logic.Handlers.ShoppingLists
         
         public class Handler : IRequestHandler<Query, ShoppingList>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IShoppingListService _shoppingListService;
+            public Handler(IShoppingListService shoppingListService)
             {
-                _context = context;
+                _shoppingListService = shoppingListService;
             }
 
             public async Task<ShoppingList> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.ShoppingLists.FindAsync(request.Id); 
+                return await _shoppingListService.GetShoppingListDetails(request.Id); 
             }
         }
     }

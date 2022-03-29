@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using Domain;
 using MediatR;
 using Persistence;
@@ -18,16 +19,15 @@ namespace Application.Logic.Handlers.Recipes
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IRecipeService _recipeService;
+            public Handler(IRecipeService recipeService)
             {
-                _context = context;
+                _recipeService = recipeService;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.Recipes.Add(request.Recipe);
-                await _context.SaveChangesAsync();
+                await _recipeService.CreateRecipe(request.Recipe);
                 return Unit.Value;
             }
         }

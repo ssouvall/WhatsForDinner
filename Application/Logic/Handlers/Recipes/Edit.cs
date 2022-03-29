@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -19,22 +20,16 @@ namespace Application.Logic.Handlers.Recipes
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            private readonly IRecipeService _recipeService;
+            public Handler(IRecipeService recipeService)
             {
-                _mapper = mapper;
-                _context = context;
+                _recipeService = recipeService;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var recipe = await _context.Recipes.FindAsync(request.Recipe.Id);
-
-                _mapper.Map(request.Recipe, recipe);
-
-                await _context.SaveChangesAsync();
-
+                var recipe = await _recipeService.GetRecipeDetails(request.Recipe.Id);
+                await _recipeService.EditRecipe(request.Recipe.Id, recipe);
                 return Unit.Value;
             }
         }

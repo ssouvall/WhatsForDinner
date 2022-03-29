@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -16,22 +17,16 @@ namespace Application.Logic.Handlers.Ingredients
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            private readonly IIngredientService _ingredientService;
+            public Handler(IIngredientService ingredientService)
             {
-                _mapper = mapper;
-                _context = context;
+                _ingredientService = ingredientService;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var ingredient = await _context.Ingredients.FindAsync(request.Ingredient.Id);
-
-                _mapper.Map(request.Ingredient, ingredient);
-
-                await _context.SaveChangesAsync();
-
+                var ingredient = await _ingredientService.GetIngredientDetails(request.Ingredient.Id);
+                await _ingredientService.EditIngredient(request.Ingredient.Id, ingredient);
                 return Unit.Value;
             }
         }
