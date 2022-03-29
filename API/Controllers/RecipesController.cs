@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Application.Logic.Recipes;
+using Application.Logic.Handlers.Recipes;
 using Application;
 
 namespace API.Controllers

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.Logic.Ingredients;
+using Application.Logic.Handlers.Ingredients;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 

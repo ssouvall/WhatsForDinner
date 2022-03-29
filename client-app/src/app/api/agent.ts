@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { Ingredient } from "../models/ingredient";
 import { IngredientListItem } from "../models/ingredientListItem";
 import { Recipe } from "../models/recipe";
+import { ShoppingList } from "../models/shoppingList";
 
 //add delay on loading
 const sleep = (delay: number) => {
@@ -57,10 +58,19 @@ const IngredientListItems = {
     delete: (id: string) => requests.del<void>(`/ingredientListItems/${id}`),
 }
 
+const ShoppingLists = {
+    list: () => requests.get<ShoppingList[]>('/shoppingLists'),
+    details: (id: string) => requests.get<ShoppingList>(`/shoppingLists/${id}`),
+    create: (shoppingList: ShoppingList) => requests.post<void>('/shoppingLists', shoppingList),
+    update: (shoppingList: ShoppingList) => requests.put<void>(`/shoppingLists/${shoppingList.id}`, shoppingList),
+    delete: (id: string) => requests.del<void>(`/shoppingLists/${id}`),
+}
+
 const agent = {
     Recipes,
     Ingredients,
-    IngredientListItems
+    IngredientListItems,
+    ShoppingLists
 }
 
 export default agent;

@@ -51,7 +51,6 @@ export default function RecipeForm() {
                         ingredients.push(dataObj);
                     }
                 })
-                console.log(ingredients);
                 setIngredients(ingredients);
             }
         })

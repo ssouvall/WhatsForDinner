@@ -54,7 +54,7 @@ namespace Persistence.Migrations
                     b.Property<string>("QuantityUnit")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("RecipeId")
+                    b.Property<Guid?>("RecipeId")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("isComplete")
@@ -92,6 +92,50 @@ namespace Persistence.Migrations
                     b.ToTable("Recipes");
                 });
 
+            modelBuilder.Entity("Domain.ShoppingList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingLists");
+                });
+
+            modelBuilder.Entity("IngredientListItemShoppingList", b =>
+                {
+                    b.Property<Guid>("IngredientListItemsId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ShoppingListsId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IngredientListItemsId", "ShoppingListsId");
+
+                    b.HasIndex("ShoppingListsId");
+
+                    b.ToTable("IngredientListItemShoppingList");
+                });
+
+            modelBuilder.Entity("RecipeShoppingList", b =>
+                {
+                    b.Property<Guid>("RecipesId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ShoppingListsId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RecipesId", "ShoppingListsId");
+
+                    b.HasIndex("ShoppingListsId");
+
+                    b.ToTable("RecipeShoppingList");
+                });
+
             modelBuilder.Entity("Domain.IngredientListItem", b =>
                 {
                     b.HasOne("Domain.Ingredient", "Ingredient")
@@ -102,13 +146,41 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Recipe", "Recipe")
                         .WithMany("IngredientListItems")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RecipeId");
 
                     b.Navigation("Ingredient");
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("IngredientListItemShoppingList", b =>
+                {
+                    b.HasOne("Domain.IngredientListItem", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientListItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.ShoppingList", null)
+                        .WithMany()
+                        .HasForeignKey("ShoppingListsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeShoppingList", b =>
+                {
+                    b.HasOne("Domain.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.ShoppingList", null)
+                        .WithMany()
+                        .HasForeignKey("ShoppingListsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Ingredient", b =>

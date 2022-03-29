@@ -9,6 +9,7 @@ import RecipeDetails from '../../features/recipes/details/RecipeDetails';
 import IngredientDashboard from '../../features/ingredients/dashboard/IngredientDashboard';
 import IngredientDetails from '../../features/ingredients/details/IngredientDetails';
 import IngredientForm from '../../features/ingredients/form/IngredientForm';
+import ShoppingListDashboard from '../../features/shoppingLIsts/dashboard/ShoppingListDashboard';
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
         <Route key={location.key} path={['/createRecipe', '/manage/:id']} component={RecipeForm} />
         <Route exact path='/ingredients' component={IngredientDashboard} />
         <Route exact path='/ingredients/:id' component={IngredientDetails} />
+        <Route exact path='/shoppingLists' component={ShoppingListDashboard} />
       </Container>
     </Fragment>
   );

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.Logic.IngredientListItems;
+using Application.Logic.Handlers.IngredientListItems;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 

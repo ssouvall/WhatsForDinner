@@ -16,6 +16,7 @@ export default function Navbar() {
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/recipes' name="Recipes" />
                 <Menu.Item as={NavLink} to='/ingredients' name="Ingredients" />
+                <Menu.Item as={NavLink} to='/shoppingLists' name="Shopping Lists" />
                 <Menu.Item>
                     <Button id='createBtn' as={NavLink} to='/createRecipe' onClick={() => dispatch(setFormOpenState(true, undefined))} content="Create Recipe" />
                 </Menu.Item>
