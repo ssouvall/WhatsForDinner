@@ -25,8 +25,8 @@ namespace Application.Logic.Handlers.Ingredients
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var ingredient = await _ingredientService.GetIngredientDetails(request.Ingredient.Id);
-                await _ingredientService.EditIngredient(request.Ingredient.Id, ingredient);
+                var ingredient = await _ingredientService.GetIngredientDetails(request.Ingredient.IngredientId);
+                await _ingredientService.EditIngredient(request.Ingredient.IngredientId, ingredient);
                 return Unit.Value;
             }
         }

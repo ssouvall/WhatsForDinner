@@ -24,7 +24,7 @@ namespace Application.Logic.Handlers.Recipes
 
             public async Task<List<Recipe>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _recipeService.ListRecipes();
+                return await _recipeService.QueryRecipes().ToListAsync();
             }
         }
 

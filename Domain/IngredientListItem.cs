@@ -9,7 +9,7 @@ namespace Domain
             this.ShoppingLists = new HashSet<ShoppingList>();
         }
 
-        public Guid Id { get; set; }
+        public Guid IngredientListItemId { get; set; }
         public Guid? RecipeId { get; set; }
         public Guid IngredientId { get; set; }
         public string Name { get; set; }

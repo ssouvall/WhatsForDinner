@@ -52,5 +52,10 @@ namespace Application.Logic.Services
                 .Where(ili => ili.RecipeId == recipeId)
                 .ToListAsync();
         }
+
+        public IQueryable<IngredientListItem> QueryIngredientListItems()
+        {
+            return _baseRepositoryService.GetAll();
+        }
     }
 }

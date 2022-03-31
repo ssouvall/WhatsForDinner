@@ -8,6 +8,8 @@ namespace Application.Contracts
 {
     public interface IIngredientListItemService
     {
+        IQueryable<IngredientListItem> QueryIngredientListItems();
+        
         Task<List<IngredientListItem>> ListIngredientListItemByRecipe(Guid recipeId);
 
         Task<IngredientListItem> GetIngredientListItemDetails(Guid id);

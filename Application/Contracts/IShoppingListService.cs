@@ -12,7 +12,9 @@ namespace Application.Contracts
 
         Task<List<Recipe>> GetShoppingListRecipes(Guid shoppingListId);
 
-        Task<List<ShoppingList>> ListShoppingLists();
+        Task<List<IngredientListItem>> GetShoppingListIngredientListItems(Guid shoppingListId);
+
+        IQueryable<ShoppingList> QueryShoppingLists();
 
         Task<ShoppingList> GetShoppingListDetails(Guid id);
 

@@ -10,6 +10,11 @@ namespace API.Controllers
 {
     public class IngredientListItemsController : BaseApiController
     {
+        [HttpGet]
+        public async Task<ActionResult<List<IngredientListItem>>> QueryIngredientListItems()
+        {
+            return await Mediator.Send(new List.Query());
+        }
         [HttpGet("[action]/{recipeId}")]
         public async Task<ActionResult<List<IngredientListItem>>> GetIngredientListItemsByRecipe(Guid recipeId)
         {
@@ -35,7 +40,7 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditIngredientListItem(Guid id, IngredientListItem ingredientListItem)
         {
-            ingredientListItem.Id = id;
+            ingredientListItem.IngredientListItemId = id;
             return Ok(await Mediator.Send(new Edit.Command{IngredientListItem = ingredientListItem}));
         }
 

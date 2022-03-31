@@ -11,7 +11,7 @@ namespace Domain
             this.Recipes = new HashSet<Recipe>();
             this.IngredientListItems = new HashSet<IngredientListItem>();
         }
-        public Guid Id { get; set; }
+        public Guid ShoppingListId { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
         public virtual ICollection<IngredientListItem> IngredientListItems { get; set; }

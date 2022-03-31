@@ -12,6 +12,5 @@ namespace Application.Core
             CreateMap<IngredientListItem, IngredientListItem>();
             CreateMap<ShoppingList, ShoppingList>();
         }
-        
     }
 }

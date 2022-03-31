@@ -35,9 +35,9 @@ namespace Application.Logic.Services
             return await _baseRepositoryService.GetDetails(id);
         }
 
-        public async Task<List<Recipe>> ListRecipes()
+        public IQueryable<Recipe> QueryRecipes()
         {
-            return await _baseRepositoryService.GetAll().ToListAsync();
+            return _baseRepositoryService.GetAll();
         }
     }
 }

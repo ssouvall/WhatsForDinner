@@ -16,5 +16,7 @@ namespace Application.Contracts
         Task Edit(object id, T item);
 
         Task Delete(object id);
+        
+        // Task ManyToManyAccess(T entity1, object entityTwoId);
     }
 }

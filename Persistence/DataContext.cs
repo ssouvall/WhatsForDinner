@@ -16,6 +16,5 @@ namespace Persistence
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IngredientListItem> IngredientListItems { get; set; }
         public DbSet<ShoppingList> ShoppingLists { get; set; }
-
     }
 }

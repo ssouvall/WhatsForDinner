@@ -4,32 +4,27 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts;
-using AutoMapper;
-using Domain;
 using MediatR;
-using Persistence;
 
-namespace Application.Logic.Handlers.Recipes
+namespace Application.Logic.Handlers.ShoppingLists
 {
-    public class Edit
+    public class AddRecipeToShoppingList
     {
         public class Command : IRequest
         {
-            public Recipe Recipe { get; set; }
+            public Guid Id { get; set; }
+            public Guid RecipeId { get; set; }
         }
-
         public class Handler : IRequestHandler<Command>
         {
-            private readonly IRecipeService _recipeService;
-            public Handler(IRecipeService recipeService)
+            private readonly IShoppingListService _shoppingListService;
+            public Handler(IShoppingListService shoppingListService)
             {
-                _recipeService = recipeService;
+                _shoppingListService = shoppingListService;
             }
-
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var recipe = await _recipeService.GetRecipeDetails(request.Recipe.RecipeId);
-                await _recipeService.EditRecipe(request.Recipe.RecipeId, recipe);
+                await _shoppingListService.AddRecipeToShoppingList(request.Id, request.RecipeId);
                 return Unit.Value;
             }
         }

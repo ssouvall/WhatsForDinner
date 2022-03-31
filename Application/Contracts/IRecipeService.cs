@@ -8,7 +8,7 @@ namespace Application.Contracts
 {
     public interface IRecipeService
     {
-        Task<List<Recipe>> ListRecipes();
+        IQueryable<Recipe> QueryRecipes();
 
         Task<Recipe> GetRecipeDetails(Guid id);
 

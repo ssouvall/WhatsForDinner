@@ -31,7 +31,7 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditShoppingList(Guid id, ShoppingList shoppingList)
         {
-            shoppingList.Id = id;
+            shoppingList.ShoppingListId = id;
             return Ok(await Mediator.Send(new Edit.Command{ShoppingList = shoppingList}));
         }
 
@@ -39,6 +39,24 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteShoppingList(Guid id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<ActionResult<List<Recipe>>> GetShoppingListRecipes(Guid id)
+        {
+            return await Mediator.Send(new GetShoppingListRecipes.Query{Id = id});
+        }
+
+        [HttpPost("[action]/{id}/{recipeId}")]
+        public async Task<IActionResult> AddRecipeToShoppingList(Guid id, Guid recipeId)
+        {
+            return Ok(await Mediator.Send(new AddRecipeToShoppingList.Command {Id = id, RecipeId = recipeId}));
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<ActionResult<List<IngredientListItem>>> GetShoppingListIngredientListItems(Guid id)
+        {
+            return await Mediator.Send(new GetShoppingListIngredientListItems.Query{Id = id});
         }
     }
 }

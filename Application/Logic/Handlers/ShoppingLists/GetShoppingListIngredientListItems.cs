@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using Application.Contracts;
 using Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 namespace Application.Logic.Handlers.ShoppingLists
 {
-    public class List
+    public class GetShoppingListIngredientListItems
     {
-        public class Query : IRequest<List<ShoppingList>> { }
-        public class Handler : IRequestHandler<Query, List<ShoppingList>>
+        public class Query : IRequest<List<IngredientListItem>>
+        {
+            public Guid Id { get; set; }
+        }
+        public class Handler : IRequestHandler<Query, List<IngredientListItem>>
         {
             private readonly IShoppingListService _shoppingListService;
             public Handler(IShoppingListService shoppingListService)
@@ -22,11 +23,10 @@ namespace Application.Logic.Handlers.ShoppingLists
                 _shoppingListService = shoppingListService;
             }
 
-            public async Task<List<ShoppingList>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<IngredientListItem>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _shoppingListService.QueryShoppingLists().ToListAsync();
+                return await _shoppingListService.GetShoppingListIngredientListItems(request.Id);
             }
         }
-
     }
 }
