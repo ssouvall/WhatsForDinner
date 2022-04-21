@@ -23,7 +23,7 @@ namespace Application.Logic.Handlers.Ingredients
             }
             public async Task<List<Ingredient>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _ingredientService.ListIngredients();
+                return await _ingredientService.QueryIngredients().ToListAsync();
             }
         }
 

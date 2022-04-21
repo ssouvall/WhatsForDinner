@@ -53,10 +53,16 @@ namespace API.Controllers
             return Ok(await Mediator.Send(new AddRecipeToShoppingList.Command {Id = id, RecipeId = recipeId}));
         }
 
-        [HttpGet("[action]/{id}")]
-        public async Task<ActionResult<List<IngredientListItem>>> GetShoppingListIngredientListItems(Guid id)
+        [HttpPost("[action]/{id}/{recipeId}")]
+        public async Task<IActionResult> RemoveRecipeFromShoppingList(Guid id, Guid recipeId)
         {
-            return await Mediator.Send(new GetShoppingListIngredientListItems.Query{Id = id});
+            return Ok(await Mediator.Send(new RemoveRecipeFromShoppingList.Command {Id = id, RecipeId = recipeId}));
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<ActionResult<List<ShoppingListItem>>> GetShoppingListIngredientItems(Guid id)
+        {
+            return await Mediator.Send(new GetIngredientsByShoppingList.Query{ShoppingListId = id});
         }
     }
 }

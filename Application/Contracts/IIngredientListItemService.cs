@@ -18,7 +18,7 @@ namespace Application.Contracts
 
         Task CreateBulk(List<IngredientListItem> ingredientListItems);
 
-        Task EditIngredientListItem(Guid id, IngredientListItem ingredientListItem);
+        Task EditIngredientListItem(IngredientListItem editedItem, IngredientListItem ingredientListItem);
 
         Task DeleteIngredientListItem(Guid id);          
     }

@@ -5,7 +5,8 @@ namespace Domain
 {
     public class Recipe
     {
-        public Recipe () {
+        public Recipe () 
+        {
             this.ShoppingLists = new HashSet<ShoppingList>();
             this.IngredientListItems = new HashSet<IngredientListItem>();
         }

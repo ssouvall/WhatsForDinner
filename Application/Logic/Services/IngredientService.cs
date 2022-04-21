@@ -25,9 +25,9 @@ namespace Application.Logic.Services
             await _baseRepositoryService.Delete(id);
         }
 
-        public async Task EditIngredient(Guid id, Ingredient ingredient)
+        public async Task EditIngredient(Ingredient editedItem, Ingredient ingredient)
         {
-            await _baseRepositoryService.Edit(id, ingredient);
+            await _baseRepositoryService.Edit(editedItem, ingredient);
         }
 
         public async Task<Ingredient> GetIngredientDetails(Guid id)
@@ -35,9 +35,9 @@ namespace Application.Logic.Services
             return await _baseRepositoryService.GetDetails(id);
         }
 
-        public async Task<List<Ingredient>> ListIngredients()
+        public IQueryable<Ingredient> QueryIngredients()
         {
-            return await _baseRepositoryService.GetAll().ToListAsync();
+            return _baseRepositoryService.GetAll();
         }
     }
 }

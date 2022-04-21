@@ -33,10 +33,9 @@ namespace Application.Logic.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task Edit(object id, T item)
+        public async Task Edit(T editedItem, T item)
         {
-            var entity = await _context.Set<T>().FindAsync(id);
-            _mapper.Map(item, entity);
+            _mapper.Map(editedItem, item);
             await _context.SaveChangesAsync();
         }
 

@@ -26,7 +26,7 @@ namespace Application.Logic.Handlers.ShoppingLists
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var shoppingList = await _shoppingListService.GetShoppingListDetails(request.ShoppingList.ShoppingListId);
-                await _shoppingListService.EditShoppingList(request.ShoppingList.ShoppingListId, shoppingList);
+                await _shoppingListService.EditShoppingList(request.ShoppingList, shoppingList);
                 return Unit.Value;
             }
         }

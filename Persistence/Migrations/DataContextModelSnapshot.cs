@@ -48,17 +48,14 @@ namespace Persistence.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Quantity")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("QuantityUnit")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("RecipeId")
+                    b.Property<Guid>("RecipeId")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("isComplete")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("IngredientListItemId");
 
@@ -106,6 +103,45 @@ namespace Persistence.Migrations
                     b.ToTable("ShoppingLists");
                 });
 
+            modelBuilder.Entity("Domain.ShoppingListItem", b =>
+                {
+                    b.Property<Guid>("ShoppingListItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("IngredientId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("QuantityUnit")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ShoppingListId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("isComplete")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ShoppingListItemId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("ShoppingListId");
+
+                    b.ToTable("ShoppingListItems");
+                });
+
             modelBuilder.Entity("IngredientListItemShoppingList", b =>
                 {
                     b.Property<Guid>("IngredientListItemsIngredientListItemId")
@@ -146,11 +182,32 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Recipe", "Recipe")
                         .WithMany("IngredientListItems")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Ingredient");
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("Domain.ShoppingListItem", b =>
+                {
+                    b.HasOne("Domain.Ingredient", "Ingredient")
+                        .WithMany("ShoppingListItems")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.ShoppingList", "ShoppingList")
+                        .WithMany("ShoppingListItems")
+                        .HasForeignKey("ShoppingListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("ShoppingList");
                 });
 
             modelBuilder.Entity("IngredientListItemShoppingList", b =>
@@ -186,11 +243,18 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Ingredient", b =>
                 {
                     b.Navigation("IngredientListItems");
+
+                    b.Navigation("ShoppingListItems");
                 });
 
             modelBuilder.Entity("Domain.Recipe", b =>
                 {
                     b.Navigation("IngredientListItems");
+                });
+
+            modelBuilder.Entity("Domain.ShoppingList", b =>
+                {
+                    b.Navigation("ShoppingListItems");
                 });
 #pragma warning restore 612, 618
         }

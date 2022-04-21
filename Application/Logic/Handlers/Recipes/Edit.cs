@@ -29,7 +29,7 @@ namespace Application.Logic.Handlers.Recipes
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var recipe = await _recipeService.GetRecipeDetails(request.Recipe.RecipeId);
-                await _recipeService.EditRecipe(request.Recipe.RecipeId, recipe);
+                await _recipeService.EditRecipe(request.Recipe, recipe);
                 return Unit.Value;
             }
         }

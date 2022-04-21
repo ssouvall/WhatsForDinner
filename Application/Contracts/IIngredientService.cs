@@ -8,13 +8,13 @@ namespace Application.Contracts
 {
     public interface IIngredientService
     {
-        Task<List<Ingredient>> ListIngredients();
+        IQueryable<Ingredient> QueryIngredients();
 
         Task<Ingredient> GetIngredientDetails(Guid id);
 
         Task CreateIngredient(Ingredient ingredient);
 
-        Task EditIngredient(Guid id, Ingredient ingredient);
+        Task EditIngredient(Ingredient editedItem, Ingredient ingredient);
 
         Task DeleteIngredient(Guid id);        
     }

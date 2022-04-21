@@ -36,9 +36,9 @@ namespace Application.Logic.Services
             await _baseRepositoryService.Delete(id);
         }
 
-        public async Task EditIngredientListItem(Guid id, IngredientListItem ingredientListItem)
+        public async Task EditIngredientListItem(IngredientListItem editedItem, IngredientListItem ingredientListItem)
         {
-            await _baseRepositoryService.Edit(id, ingredientListItem);
+            await _baseRepositoryService.Edit(editedItem, ingredientListItem);
         }
 
         public async Task<IngredientListItem> GetIngredientListItemDetails(Guid id)

@@ -4,28 +4,28 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts;
-using Domain;
 using MediatR;
 
 namespace Application.Logic.Handlers.ShoppingLists
 {
-    public class GetShoppingListIngredientListItems
+    public class RemoveRecipeFromShoppingList
     {
-        public class Query : IRequest<List<IngredientListItem>>
+        public class Command : IRequest
         {
             public Guid Id { get; set; }
+            public Guid RecipeId { get; set; }
         }
-        public class Handler : IRequestHandler<Query, List<IngredientListItem>>
+        public class Handler : IRequestHandler<Command>
         {
             private readonly IShoppingListService _shoppingListService;
             public Handler(IShoppingListService shoppingListService)
             {
                 _shoppingListService = shoppingListService;
             }
-
-            public async Task<List<IngredientListItem>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                return await _shoppingListService.GetShoppingListIngredientListItems(request.Id);
+                await _shoppingListService.RemoveRecipeFromShoppingList(request.Id, request.RecipeId);
+                return Unit.Value;
             }
         }
     }

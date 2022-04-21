@@ -40,6 +40,7 @@ namespace API.Extensions
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<IIngredientListItemService, IngredientListItemService>();
+            services.AddScoped<IShoppingListItemService, ShoppingListItemService>();
 
             return services;
          }

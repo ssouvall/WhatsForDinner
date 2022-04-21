@@ -25,9 +25,9 @@ namespace Application.Logic.Services
             await _baseRepositoryService.Delete(id);
         }
 
-        public async Task EditRecipe(Guid id, Recipe recipe)
+        public async Task EditRecipe(Recipe editedRecipe, Recipe recipe)
         {
-            await _baseRepositoryService.Edit(id, recipe);
+            await _baseRepositoryService.Edit(editedRecipe, recipe);
         }
 
         public async Task<Recipe> GetRecipeDetails(Guid id)

@@ -13,50 +13,24 @@ namespace Application.Logic.Services
     {   
         private readonly IBaseRepositoryService<ShoppingList> _baseRepositoryService;
         private readonly IRecipeService _recipeService;
+        private readonly IIngredientService _ingredientService;
         private readonly DataContext _context;
         private readonly IIngredientListItemService _ingredientListItemService;
+        private readonly IShoppingListItemService _shoppingListItemService;
 
         public ShoppingListService(IBaseRepositoryService<ShoppingList> baseRepositoryService, 
         IRecipeService recipeService,
+        IIngredientService ingredientService,
         IIngredientListItemService ingredientListItemService,
+        IShoppingListItemService shoppingListItemService,
         DataContext context)
         {
             _baseRepositoryService = baseRepositoryService;
             _recipeService = recipeService;
+            _ingredientService = ingredientService;
             _ingredientListItemService = ingredientListItemService;
+            _shoppingListItemService = shoppingListItemService;
             _context = context;
-        }
-
-        public async Task<List<Recipe>> GetShoppingListRecipes(Guid shoppingListId)
-        {
-            var shoppingList = await _baseRepositoryService.GetDetails(shoppingListId);
-            var recipes = await _recipeService.QueryRecipes()
-                .Where(r => r.ShoppingLists.Contains(shoppingList))
-                .ToListAsync();
-
-            return recipes;
-        }
-
-        public async Task<List<IngredientListItem>> GetShoppingListIngredientListItems(Guid shoppingListId)
-        {
-            var shoppingList = await _baseRepositoryService.GetDetails(shoppingListId);
-            var ingredientItems = await _ingredientListItemService.QueryIngredientListItems()
-                .Where(li => li.ShoppingLists.Contains(shoppingList))
-                .ToListAsync();
-            return ingredientItems;
-        }
-        
-        public async Task AddRecipeToShoppingList(Guid shoppingListId, Guid recipeId)
-        {
-            var shoppingList = await _baseRepositoryService.GetDetails(shoppingListId);
-            var recipe = await _recipeService.GetRecipeDetails(recipeId);
-            bool isDuplicate = await CheckForDuplicateRecipes(shoppingList, recipeId);
-
-            if(recipe is not null && isDuplicate == false){
-                shoppingList.Recipes.Add(recipe);
-                PopulateRecipeIngredientsToShoppingList(recipe, shoppingList);
-                await _context.SaveChangesAsync();
-            }
         }
 
         public IQueryable<ShoppingList> QueryShoppingLists()
@@ -74,9 +48,9 @@ namespace Application.Logic.Services
             await _baseRepositoryService.Create(shoppingList);
         }
 
-        public async Task EditShoppingList(Guid id, ShoppingList shoppingList)
+        public async Task EditShoppingList(ShoppingList editedItem, ShoppingList shoppingList)
         {
-            await _baseRepositoryService.Edit(id, shoppingList);
+            await _baseRepositoryService.Edit(editedItem, shoppingList);
         }
 
         public async Task DeleteShoppingList(Guid id)
@@ -84,28 +58,73 @@ namespace Application.Logic.Services
             await _baseRepositoryService.Delete(id);
         }
 
-        private async void PopulateRecipeIngredientsToShoppingList(Recipe recipe, ShoppingList shoppingList){
+        public async Task<List<Recipe>> GetShoppingListRecipes(Guid shoppingListId)
+        {
+            var shoppingList = await _baseRepositoryService.GetDetails(shoppingListId);
+            var recipes = await _recipeService.QueryRecipes()
+                .Where(r => r.ShoppingLists.Contains(shoppingList))
+                .ToListAsync();
+
+            return recipes;
+        }
+        
+        public async Task<bool> AddRecipeToShoppingList(Guid shoppingListId, Guid recipeId)
+        {
+            var shoppingList = await _baseRepositoryService.GetDetails(shoppingListId);
+            var recipe = await _recipeService.GetRecipeDetails(recipeId);
+            Recipe duplicate = await CheckForDuplicateRecipes(shoppingList, recipeId);
+
+            if(recipe is not null && duplicate is null){
+                shoppingList.Recipes.Add(recipe);
+                await PopulateRecipeIngredientsToShoppingList(recipe, shoppingList);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> RemoveRecipeFromShoppingList(Guid shoppingListId, Guid recipeId)
+        {
+            var shoppingList = await _baseRepositoryService.GetDetails(shoppingListId);
+            var recipe = await _recipeService.GetRecipeDetails(recipeId);
+            
+            if(recipe is not null && shoppingList is not null)
+            {
+                shoppingList.Recipes.Remove(recipe);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        private async Task PopulateRecipeIngredientsToShoppingList(Recipe recipe, ShoppingList shoppingList){
             var recipeIngredientItems = await _ingredientListItemService.ListIngredientListItemByRecipe(recipe.RecipeId);
             if(recipeIngredientItems.Count > 0){
                 foreach(var item in recipe.IngredientListItems){
-                    if(shoppingList.IngredientListItems.Contains(item))
+                    var ingredient = await _ingredientService.GetIngredientDetails(item.IngredientId);
+                    var newShoppingListItem = new ShoppingListItem
                     {
-                        var existingItem = shoppingList.IngredientListItems.SingleOrDefault(li => li.IngredientListItemId == item.IngredientListItemId);
-                        existingItem.Quantity = existingItem.Quantity + item.Quantity;
-                    }
-                    else
-                    {
-                        shoppingList.IngredientListItems.Add(item);
-                    }
+                        IngredientId = item.IngredientId,
+                        ShoppingListId = shoppingList.ShoppingListId,
+                        Name = item.Name,
+                        Quantity = item.Quantity,
+                        QuantityUnit = item.QuantityUnit,
+                        Notes = item.Notes,
+                        Category = ingredient.Category,
+                        isComplete = false,
+                    };
+                    shoppingList.ShoppingListItems.Add(newShoppingListItem);
                 }
             }
         }
 
-        private async Task<bool> CheckForDuplicateRecipes(ShoppingList shoppingList, Guid recipeId){
+        private async Task<Recipe> CheckForDuplicateRecipes(ShoppingList shoppingList, Guid recipeId){
             var duplicate = await _recipeService.QueryRecipes()
                 .Where(r => r.ShoppingLists.Contains(shoppingList))
                 .SingleOrDefaultAsync(r => r.RecipeId == recipeId);
-            return duplicate is null ? false : true;
+            return duplicate;
         }
     }
 }

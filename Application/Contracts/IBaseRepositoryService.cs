@@ -13,7 +13,7 @@ namespace Application.Contracts
 
         Task Create(T item);
 
-        Task Edit(object id, T item);
+        Task Edit(T editedItem, T item);
 
         Task Delete(object id);
         

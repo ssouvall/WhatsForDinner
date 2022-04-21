@@ -8,11 +8,11 @@ namespace Application.Contracts
 {
     public interface IShoppingListService
     {
-        Task AddRecipeToShoppingList(Guid shoppingListId, Guid recipeId);
+        Task<bool> AddRecipeToShoppingList(Guid shoppingListId, Guid recipeId);
+
+        Task<bool> RemoveRecipeFromShoppingList(Guid shoppingListId, Guid recipeId);
 
         Task<List<Recipe>> GetShoppingListRecipes(Guid shoppingListId);
-
-        Task<List<IngredientListItem>> GetShoppingListIngredientListItems(Guid shoppingListId);
 
         IQueryable<ShoppingList> QueryShoppingLists();
 
@@ -20,7 +20,7 @@ namespace Application.Contracts
 
         Task CreateShoppingList(ShoppingList shoppingList);
 
-        Task EditShoppingList(Guid id, ShoppingList shoppingList);
+        Task EditShoppingList(ShoppingList editedItem, ShoppingList shoppingList);
 
         Task DeleteShoppingList(Guid id);
     }

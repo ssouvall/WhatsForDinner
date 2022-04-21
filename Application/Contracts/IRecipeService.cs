@@ -14,7 +14,7 @@ namespace Application.Contracts
 
         Task CreateRecipe(Recipe Recipe);
 
-        Task EditRecipe(Guid id, Recipe Recipe);
+        Task EditRecipe(Recipe editedRecipe, Recipe Recipe);
 
         Task DeleteRecipe(Guid id);
     }
