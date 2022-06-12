@@ -23,7 +23,7 @@ export default function RecipeForm() {
     let allRecipes: Recipe[] | undefined = useSelector((state: RootState) => state.recipes.recipes)
 
     const [recipe, setRecipe] = useState<Recipe>({
-        id: '',
+        recipeId: '',
         name: '',
         category: '',
         description: '',
@@ -70,7 +70,7 @@ export default function RecipeForm() {
                     notes: "",
                     quantity: 1,
                     quantityUnit: "test unit",
-                    recipeId: recipe.id,
+                    recipeId: recipe.recipeId,
                     isComplete: false
                 }
                 recipe.ingredientListItems.push(newIngredientItem);
@@ -84,8 +84,8 @@ export default function RecipeForm() {
         event.stopPropagation();
         
         if(recipe){
-            if(!allRecipes?.find(r => r.id === recipe.id)){
-                recipe.id = uuid();
+            if(!allRecipes?.find(r => r.recipeId === recipe.recipeId)){
+                recipe.recipeId = uuid();
                 addRecipeIngredients(recipe);
                 dispatch(createRecipe(recipe));
                 sweetAlertFire(true);

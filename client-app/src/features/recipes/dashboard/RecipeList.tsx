@@ -27,7 +27,7 @@ function RecipeList() {
     }
 
     async function deleteSelectedRecipe(e: SyntheticEvent<HTMLButtonElement>, recipeId: string){
-        var targetRecipe: Recipe | undefined = recipes.find(r => r.id === recipeId);
+        var targetRecipe: Recipe | undefined = recipes.find(r => r.recipeId === recipeId);
         await setTarget(e.currentTarget.name)
         await setSubmitting(true);
         await dispatch(deleteRecipe(recipeId));
@@ -43,7 +43,7 @@ function RecipeList() {
         <Segment>
             <Item.Group divided>
                 {recipes.map((recipe) => (
-                    <Item key={recipe.id}>
+                    <Item key={recipe.recipeId}>
                         <Item.Content>
                             <Item.Header as='a'>{recipe.name}</Item.Header>
                             <Item.Description>
@@ -51,17 +51,17 @@ function RecipeList() {
                                 <div>{recipe.instructions}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button as={Link} to={`/recipes/${recipe.id}`} 
-                                    onClick={(e) => setRecipeToShow(e, recipe.id)}
-                                    name={recipe.id}
-                                    loading={loading && target === recipe.id.toString()}
+                                <Button as={Link} to={`/recipes/${recipe.recipeId}`} 
+                                    onClick={(e) => setRecipeToShow(e, recipe.recipeId)}
+                                    name={recipe.recipeId}
+                                    loading={loading && target === recipe.recipeId.toString()}
                                     floated='right' 
                                     content='View' 
                                     color='green' />
                                 <Button 
-                                    name={recipe.id}
-                                    onClick={(e) => deleteSelectedRecipe(e, recipe.id)} 
-                                    loading={submitting && target === recipe.id.toString()}
+                                    name={recipe.recipeId}
+                                    onClick={(e) => deleteSelectedRecipe(e, recipe.recipeId)} 
+                                    loading={submitting && target === recipe.recipeId.toString()}
                                     floated='right' 
                                     content='Delete' 
                                     color='orange' 

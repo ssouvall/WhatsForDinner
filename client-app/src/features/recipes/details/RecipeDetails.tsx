@@ -13,7 +13,7 @@ export default function RecipeDetails(){
     const recipe: Recipe | undefined = useSelector((state: RootState) => state.recipes.recipe);
     const ingredientListItems: IngredientListItem[] | undefined = useSelector((state: RootState) => state.ingredientListItems.ingredientListItems)
 
-    if(recipe && recipe.id){
+    if(recipe && recipe.recipeId){
         console.log(recipe)
         return(
             <Card fluid>
@@ -41,7 +41,7 @@ export default function RecipeDetails(){
                     <Button.Group widths='2'>
                         {/* <Button onClick={() => openForm(recipe.id)} basic color='blue' content='Edit' /> */}
                         {/* <Button onClick={cancelSelectRecipe} basic color='grey' content='Cancel' /> */}
-                        <Button as={Link} to={`/manage/${recipe.id}`} basic color='blue' content='Edit' />
+                        <Button as={Link} to={`/manage/${recipe.recipeId}`} basic color='blue' content='Edit' />
                         <Button as={Link} to='/recipes' onClick={() => dispatch(setRecipeDetails(undefined))} basic color='grey' content='Cancel' />
                     </Button.Group>
                 </Card.Content>

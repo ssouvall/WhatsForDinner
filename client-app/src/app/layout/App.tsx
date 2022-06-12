@@ -9,7 +9,7 @@ import RecipeDetails from '../../features/recipes/details/RecipeDetails';
 import IngredientDashboard from '../../features/ingredients/dashboard/IngredientDashboard';
 import IngredientDetails from '../../features/ingredients/details/IngredientDetails';
 import IngredientForm from '../../features/ingredients/form/IngredientForm';
-import ShoppingListDashboard from '../../features/shoppingLIsts/dashboard/ShoppingListDashboard';
+import ShoppingListDashboard from '../../features/shoppingLists/dashboard/ShoppingListDashboard';
 
 function App() {
   const location = useLocation();

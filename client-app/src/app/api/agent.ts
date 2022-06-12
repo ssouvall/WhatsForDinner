@@ -36,9 +36,9 @@ const Recipes = {
     list: () => requests.get<Recipe[]>('/recipes'),
     details: (id: string) => requests.get<Recipe>(`/recipes/${id}`),
     create: (recipe: Recipe) => requests.post<void>('/recipes', recipe),
-    update: (recipe: Recipe) => requests.put<void>(`/recipes/${recipe.id}`, recipe),
+    update: (recipe: Recipe) => requests.put<void>(`/recipes/${recipe.recipeId}`, recipe),
     delete: (id: string) => requests.del<void>(`/recipes/${id}`),
-    addIngredient: (recipe: Recipe, ingredient: Ingredient) => requests.post<void>(`/recipes/${recipe.id}/${ingredient.id}`, recipe)
+    addIngredient: (recipe: Recipe, ingredient: Ingredient) => requests.post<void>(`/recipes/${recipe.recipeId}/${ingredient.id}`, recipe)
 }
 
 const Ingredients = {
@@ -60,10 +60,11 @@ const IngredientListItems = {
 
 const ShoppingLists = {
     list: () => requests.get<ShoppingList[]>('/shoppingLists'),
-    details: (id: string) => requests.get<ShoppingList>(`/shoppingLists/${id}`),
+    details: (shoppingListId: string) => requests.get<ShoppingList>(`/shoppingLists/${shoppingListId}`),
     create: (shoppingList: ShoppingList) => requests.post<void>('/shoppingLists', shoppingList),
-    update: (shoppingList: ShoppingList) => requests.put<void>(`/shoppingLists/${shoppingList.id}`, shoppingList),
-    delete: (id: string) => requests.del<void>(`/shoppingLists/${id}`),
+    update: (shoppingList: ShoppingList) => requests.put<void>(`/shoppingLists/${shoppingList.shoppingListId}`, shoppingList),
+    delete: (shoppingListId: string) => requests.del<void>(`/shoppingLists/${shoppingListId}`),
+    addRecipesToList: (id: string, recipeId: string) => requests.post<void>(`/shoppingLists/AddRecipeToShoppingList/${id}/${recipeId}`, id),
 }
 
 const agent = {

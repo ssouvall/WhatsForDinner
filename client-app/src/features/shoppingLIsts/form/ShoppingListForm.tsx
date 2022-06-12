@@ -1,86 +1,103 @@
-import React, { useEffect, useState } from 'react';
-import { Dropdown, Form, Segment } from 'semantic-ui-react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
+import { Button, Dropdown, DropdownProps, Form, Segment } from 'semantic-ui-react';
 import agent from '../../../app/api/agent';
 import { DropDownDataItem } from '../../../app/models/dropDownDataItem';
 import { IngredientListItem } from '../../../app/models/ingredientListItem';
 import { Recipe } from '../../../app/models/recipe';
 import { ShoppingList } from '../../../app/models/shoppingList';
+import { useDispatch, useSelector } from 'react-redux';
+import { addRecipesToList } from "../../../redux/actions/shoppingList/shoppingListActions";
 
 function ShoppingListForm() {
+    const dispatch = useDispatch()
+    const [shoppingList, setShoppingList] = useState<ShoppingList>({
+        shoppingListId: '',
+        name: '',
+        recipes: [],
+        ingredients: []
+    })
+    const [allShoppingLists, setAllShoppingLists] = useState<DropDownDataItem<ShoppingList>[]>([]);
+    const [allRecipes, setAllRecipes] = useState<DropDownDataItem<Recipe>[]>([]);
+    const [selectedRecipeIds, setSelectedRecipeIds] = useState<any>([]);
+
     useEffect(() => {
-        if(selectedIngredient !== undefined) setSelectedIngredient(selectedIngredient);
-        if(selectedRecipe !== undefined) setSelectedRecipe(selectedRecipe);
-        agent.Recipes.list().then(data => {
+        console.log(shoppingList)
+        agent.ShoppingLists.list().then(data => {
             if(data.length !== 0){
                  data.forEach(d => {
                     var dataObj = {
-                        key: d.id,
-                        value: d.name,
+                        key: d.shoppingListId,
+                        value: d.shoppingListId,
                         text: d.name
                     }
-                    if (!allRecipes.find(i => i.key === dataObj.key)){
+                    if (!allShoppingLists.find(i => i.key === dataObj.key)){
+                        allShoppingLists.push(dataObj);
+                    }
+                })
+                setAllShoppingLists(allShoppingLists);
+            }
+        })
+        agent.Recipes.list().then(data => {
+            if(data.length !== 0){
+                data.forEach(d => {
+                    var dataObj = {
+                        key: d.recipeId,
+                        value: d.recipeId,
+                        text: d.name
+                    }
+                    if (!allRecipes.find(r => r.key === dataObj.key)){
                         allRecipes.push(dataObj);
                     }
                 })
                 setAllRecipes(allRecipes);
             }
         })
-    }, [])
+    }, [shoppingList, allShoppingLists, allRecipes, selectedRecipeIds])
 
-    const [shoppingList, setShoppingList] = useState<ShoppingList>({
-        id: '',
-        name: '',
-        recipes: [],
-        ingredients: []
-    })
-    const [selectedIngredient, setSelectedIngredient] = useState<IngredientListItem>({
-        id: '',
-        name: '',
-        ingredientId: '',
-        notes: '',
-        quantity: 0,
-        quantityUnit: '',
-        recipeId: '',
-        isComplete: false
-    })
-    const [selectedRecipe, setSelectedRecipe] = useState<Recipe>({
-        id: '',
-        name: '',
-        category: '',
-        description: '',
-        instructions: '',
-        ingredientListItems: []
-    })
-    const [allRecipes, setAllRecipes] = useState<DropDownDataItem<Recipe>[]>([]);
-    const [selectedRecipes, setSelectedRecipes] = useState<DropDownDataItem<Recipe>[]>([])
-    const [ingredientItems, setIngredientItems] = useState<DropDownDataItem<IngredientListItem>[]>([])
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>, data: DropdownProps){
+        event.preventDefault();
 
-    function handleSubmit(){
-
+        dispatch(addRecipesToList(shoppingList.shoppingListId, selectedRecipeIds));
     }
 
-    function handleInputChange(){
-
+    function handleShoppingListDropDownChange(event: SyntheticEvent<HTMLElement>, data: DropdownProps){
+        setShoppingList({...shoppingList, [data.name]: data.value})
     }
 
-    function handleDropDownChange(){
-        
+    function handleRecipeDropDownChange(event: SyntheticEvent<HTMLElement>, data: DropdownProps){
+        if (data?.value) {
+            setSelectedRecipeIds(data.value);
+        }
     }
 
     return (
         <Segment>
             <Form onSubmit={handleSubmit} autoComplete='off' >
-                <Form.Input placeholder="Shopping List Name" value={shoppingList.name} name='name' onChange={handleInputChange} />
                 <Dropdown 
-                    placeholder="Add Recipes to this List..." 
-                    name="recipes"
-                    value={selectedRecipe.name}
+                    placeholder="Select a Shopping List" 
+                    name="shoppingListId"
+                    value={shoppingList.shoppingListId}
                     fluid
                     search
                     selection
-                    options={allRecipes}
-                    onChange={handleDropDownChange} 
+                    clearable
+                    options={allShoppingLists}
+                    onChange={handleShoppingListDropDownChange} 
                 />
+                {shoppingList.shoppingListId !== '' && (
+                <Dropdown 
+                    placeholder="Select Recipes to Add to Shopping List" 
+                    name="recipe"
+                    multiple
+                    fluid
+                    selection
+                    search
+                    clearable
+                    options={allRecipes}
+                    onChange={handleRecipeDropDownChange}
+                />
+                )}
+                <Button id="addRecipesBtn" floated="right" positive type="submit" content="Submit" />
             </Form>
         </Segment>
     )
