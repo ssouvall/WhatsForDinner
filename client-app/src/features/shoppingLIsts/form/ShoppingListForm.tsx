@@ -73,7 +73,7 @@ function ShoppingListForm() {
     }
 
     return (
-        <Segment>
+        <Segment className="add-margin-top">
             <Form onSubmit={handleSubmit} autoComplete='off' >
                 <Dropdown 
                     placeholder="Select a Shopping List" 

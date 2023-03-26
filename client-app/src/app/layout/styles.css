@@ -19,6 +19,10 @@ code {
     monospace;
 }
 
+.add-margin-top {
+  margin-top: 7em !important;
+}
+
 #createBtn {
   background-color: #F2711C;
   color: white;
@@ -27,3 +31,28 @@ code {
 #createIngredientsBtn {
   margin-top: 7%;
 }
+
+/*home page styles*/
+
+.masthead {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.masthead .ui.menu .ui.button,
+.ui.menu a.ui.inverted.button {
+  margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+  font-size: 4em;
+  font-weight: normal;
+}
+
+.masthead h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+}
+
+/*end home page styles*/

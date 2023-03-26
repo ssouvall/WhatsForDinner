@@ -35,7 +35,7 @@ export default function RecipeDashboard(){
     if (loading) return <LoadingComponent content='Loading...' />
 
     return (
-        <Grid>
+        <Grid className="add-margin-top">
             <Grid.Column width='10'>
                 <RecipeList />
             </Grid.Column>

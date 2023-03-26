@@ -16,7 +16,7 @@ function App() {
   return (
     <Fragment>
       <Navbar />
-      <Container style={{marginTop: '7em'}}>
+      <Container>
         <Route exact path='/' component={HomePage} />
         <Route exact path='/recipes' component={RecipeDashboard} />
         <Route exact path='/recipes/:id' component={RecipeDetails} />
