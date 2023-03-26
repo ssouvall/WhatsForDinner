@@ -17,7 +17,6 @@ C:/Users/steph/Source/Repos/Recipe/Domain/obj/Debug/net5.0/Domain.genruntimeconf
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/bin/Debug/net5.0/Domain.runtimeconfig.json
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/bin/Debug/net5.0/Domain.runtimeconfig.dev.json
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/bin/Debug/net5.0/Domain.dll
-/Users/stephensouvall/Projects/WhatsForDinner/Domain/bin/Debug/net5.0/ref/Domain.dll
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/bin/Debug/net5.0/Domain.pdb
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/obj/Debug/net5.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/obj/Debug/net5.0/Domain.AssemblyInfoInputs.cache
@@ -28,3 +27,4 @@ C:/Users/steph/Source/Repos/Recipe/Domain/obj/Debug/net5.0/Domain.genruntimeconf
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/obj/Debug/net5.0/Domain.pdb
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/obj/Debug/net5.0/Domain.genruntimeconfig.cache
 /Users/stephensouvall/Projects/WhatsForDinner/Domain/obj/Debug/net5.0/Domain.csproj.AssemblyReference.cache
+/Users/stephensouvall/Projects/WhatsForDinner/Domain/obj/Debug/net5.0/refint/Domain.dll

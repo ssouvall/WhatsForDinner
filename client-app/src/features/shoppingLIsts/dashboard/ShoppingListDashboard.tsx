@@ -1,5 +1,6 @@
 import React from 'react';
 import ShoppingListForm from '../form/ShoppingListForm';
+import ShoppingListRecipes from './ShoppingListRecipes';
 
 function ShoppingListDashboard() {
     return(
@@ -11,6 +12,7 @@ function ShoppingListDashboard() {
             On the right sidebar are filters and search bar as well as a "create new shopping list button" and a dropdown menu 
             allowing the user to change shopping lists*/}
             <ShoppingListForm />
+            <ShoppingListRecipes />
         </>
     )
 }

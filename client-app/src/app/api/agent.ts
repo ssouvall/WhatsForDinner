@@ -64,7 +64,8 @@ const ShoppingLists = {
     create: (shoppingList: ShoppingList) => requests.post<void>('/shoppingLists', shoppingList),
     update: (shoppingList: ShoppingList) => requests.put<void>(`/shoppingLists/${shoppingList.shoppingListId}`, shoppingList),
     delete: (shoppingListId: string) => requests.del<void>(`/shoppingLists/${shoppingListId}`),
-    addRecipesToList: (id: string, recipeId: string) => requests.post<void>(`/shoppingLists/AddRecipeToShoppingList/${id}/${recipeId}`, id),
+    addRecipesToList: (shoppingListId: string, recipeId: string) => requests.post<void>(`/shoppingLists/AddRecipeToShoppingList/${shoppingListId}/${recipeId}`, shoppingListId),
+    getRecipesByShoppingList: (shoppingListId: string) => requests.get<Recipe[]>(`shoppingLists/GetShoppingListRecipes/${shoppingListId}`)
 }
 
 const agent = {

@@ -6,10 +6,12 @@ import { IngredientListItem } from '../../../app/models/ingredientListItem';
 import { Recipe } from '../../../app/models/recipe';
 import { ShoppingList } from '../../../app/models/shoppingList';
 import { useDispatch, useSelector } from 'react-redux';
-import { addRecipesToList } from "../../../redux/actions/shoppingList/shoppingListActions";
+import { addRecipesToList, setSelectedShoppingList } from "../../../redux/actions/shoppingList/shoppingListActions";
+import { RootState } from '../../../redux/store';
 
 function ShoppingListForm() {
     const dispatch = useDispatch()
+    const selectedShoppingList = useSelector((state: RootState) => state.shoppingLists)
     const [shoppingList, setShoppingList] = useState<ShoppingList>({
         shoppingListId: '',
         name: '',
@@ -21,7 +23,6 @@ function ShoppingListForm() {
     const [selectedRecipeIds, setSelectedRecipeIds] = useState<any>([]);
 
     useEffect(() => {
-        console.log(shoppingList)
         agent.ShoppingLists.list().then(data => {
             if(data.length !== 0){
                  data.forEach(d => {
@@ -61,6 +62,7 @@ function ShoppingListForm() {
     }
 
     function handleShoppingListDropDownChange(event: SyntheticEvent<HTMLElement>, data: DropdownProps){
+        dispatch(setSelectedShoppingList(data.value as string))
         setShoppingList({...shoppingList, [data.name]: data.value})
     }
 

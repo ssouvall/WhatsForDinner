@@ -22,7 +22,6 @@ C:/Users/steph/Source/Repos/Recipe/Application/obj/Debug/net5.0/Application.genr
 /Users/stephensouvall/Projects/WhatsForDinner/Application/bin/Debug/net5.0/Application.runtimeconfig.json
 /Users/stephensouvall/Projects/WhatsForDinner/Application/bin/Debug/net5.0/Application.runtimeconfig.dev.json
 /Users/stephensouvall/Projects/WhatsForDinner/Application/bin/Debug/net5.0/Application.dll
-/Users/stephensouvall/Projects/WhatsForDinner/Application/bin/Debug/net5.0/ref/Application.dll
 /Users/stephensouvall/Projects/WhatsForDinner/Application/bin/Debug/net5.0/Application.pdb
 /Users/stephensouvall/Projects/WhatsForDinner/Application/bin/Debug/net5.0/Domain.dll
 /Users/stephensouvall/Projects/WhatsForDinner/Application/bin/Debug/net5.0/Persistence.dll
@@ -38,3 +37,4 @@ C:/Users/steph/Source/Repos/Recipe/Application/obj/Debug/net5.0/Application.genr
 /Users/stephensouvall/Projects/WhatsForDinner/Application/obj/Debug/net5.0/Application.pdb
 /Users/stephensouvall/Projects/WhatsForDinner/Application/obj/Debug/net5.0/Application.genruntimeconfig.cache
 /Users/stephensouvall/Projects/WhatsForDinner/Application/obj/Debug/net5.0/Application.csproj.CopyComplete
+/Users/stephensouvall/Projects/WhatsForDinner/Application/obj/Debug/net5.0/refint/Application.dll
